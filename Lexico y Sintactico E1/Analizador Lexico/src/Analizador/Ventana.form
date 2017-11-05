@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Archivo"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nuevo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Salir"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Compilar"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="L&#xe9;xico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sint&#xe1;ctico"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Compilar"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Correr"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ayuda"/>
+          </Properties>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="743" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jPanel1" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" pref="18221" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="291" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+          <Properties>
+            <Property name="dividerLocation" type="int" value="30"/>
+            <Property name="dividerSize" type="int" value="2"/>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="txtAreaCodigo">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                  <JSplitPaneConstraints position="right"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JTextArea" name="txtAreaNum">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="text" type="java.lang.String" value="1&#xa;2&#xa;3&#xa;4&#xa;5&#xa;6&#xa;7&#xa;8&#xa;9&#xa;10&#xa;11&#xa;12&#xa;13&#xa;14&#xa;15&#xa;16&#xa;17&#xa;18&#xa;19&#xa;20&#xa;21&#xa;22&#xa;23&#xa;24&#xa;25&#xa;26&#xa;27&#xa;28&#xa;29&#xa;30&#xa;31&#xa;32&#xa;33&#xa;34&#xa;35&#xa;36&#xa;37&#xa;38&#xa;39&#xa;40&#xa;41&#xa;42&#xa;43&#xa;44&#xa;45&#xa;46&#xa;47&#xa;48&#xa;49&#xa;50&#xa;51&#xa;52&#xa;53&#xa;54&#xa;55&#xa;56&#xa;57&#xa;58&#xa;59&#xa;60&#xa;61&#xa;62&#xa;63&#xa;64&#xa;65&#xa;66&#xa;67&#xa;68&#xa;69&#xa;70&#xa;71&#xa;72&#xa;73&#xa;74&#xa;75&#xa;76&#xa;77&#xa;78&#xa;79&#xa;80&#xa;81&#xa;82&#xa;83&#xa;84&#xa;85&#xa;86&#xa;87&#xa;88&#xa;89&#xa;90&#xa;91&#xa;92&#xa;93&#xa;94&#xa;95&#xa;96&#xa;97&#xa;98&#xa;99&#xa;100&#xa;101&#xa;102&#xa;103&#xa;104&#xa;105&#xa;106&#xa;107&#xa;108&#xa;109&#xa;110&#xa;111&#xa;112&#xa;113&#xa;114&#xa;115&#xa;116&#xa;117&#xa;118&#xa;119&#xa;120&#xa;121&#xa;122&#xa;123&#xa;124&#xa;125&#xa;126&#xa;127&#xa;128&#xa;129&#xa;130&#xa;131&#xa;132&#xa;133&#xa;134&#xa;135&#xa;136&#xa;137&#xa;138&#xa;139&#xa;140&#xa;141&#xa;142&#xa;143&#xa;144&#xa;145&#xa;146&#xa;147&#xa;148&#xa;149&#xa;150&#xa;151&#xa;152&#xa;153&#xa;154&#xa;155&#xa;156&#xa;157&#xa;158&#xa;159&#xa;160&#xa;161&#xa;162&#xa;163&#xa;164&#xa;165&#xa;166&#xa;167&#xa;168&#xa;169&#xa;170&#xa;171&#xa;172&#xa;173&#xa;174&#xa;175&#xa;176&#xa;177&#xa;178&#xa;179&#xa;180&#xa;181&#xa;182&#xa;183&#xa;184&#xa;185&#xa;186&#xa;187&#xa;188&#xa;189&#xa;190&#xa;191&#xa;192&#xa;193&#xa;194&#xa;195&#xa;196&#xa;197&#xa;198&#xa;199&#xa;200&#xa;201&#xa;202&#xa;203&#xa;204&#xa;205&#xa;206&#xa;207&#xa;208&#xa;209&#xa;210&#xa;211&#xa;212&#xa;213&#xa;214&#xa;215&#xa;216&#xa;217&#xa;218&#xa;219&#xa;220&#xa;221&#xa;222&#xa;223&#xa;224&#xa;225&#xa;226&#xa;227&#xa;228&#xa;229&#xa;230&#xa;231&#xa;232&#xa;233&#xa;234&#xa;235&#xa;236&#xa;237&#xa;238&#xa;239&#xa;240&#xa;241&#xa;242&#xa;243&#xa;244&#xa;245&#xa;246&#xa;247&#xa;248&#xa;249&#xa;250&#xa;251&#xa;252&#xa;253&#xa;254&#xa;255&#xa;256&#xa;257&#xa;258&#xa;259&#xa;260&#xa;261&#xa;262&#xa;263&#xa;264&#xa;265&#xa;266&#xa;267&#xa;268&#xa;269&#xa;270&#xa;271&#xa;272&#xa;273&#xa;274&#xa;275&#xa;276&#xa;277&#xa;278&#xa;279&#xa;280&#xa;281&#xa;282&#xa;283&#xa;284&#xa;285&#xa;286&#xa;287&#xa;288&#xa;289&#xa;290&#xa;291&#xa;292&#xa;293&#xa;294&#xa;295&#xa;296&#xa;297&#xa;298&#xa;299&#xa;300&#xa;301&#xa;302&#xa;303&#xa;304&#xa;305&#xa;306&#xa;307&#xa;308&#xa;309&#xa;310&#xa;311&#xa;312&#xa;313&#xa;314&#xa;315&#xa;316&#xa;317&#xa;318&#xa;319&#xa;320&#xa;321&#xa;322&#xa;323&#xa;324&#xa;325&#xa;326&#xa;327&#xa;328&#xa;329&#xa;330&#xa;331&#xa;332&#xa;333&#xa;334&#xa;335&#xa;336&#xa;337&#xa;338&#xa;339&#xa;340&#xa;341&#xa;342&#xa;343&#xa;344&#xa;345&#xa;346&#xa;347&#xa;348&#xa;349&#xa;350&#xa;351&#xa;352&#xa;353&#xa;354&#xa;355&#xa;356&#xa;357&#xa;358&#xa;359&#xa;360&#xa;361&#xa;362&#xa;363&#xa;364&#xa;365&#xa;366&#xa;367&#xa;368&#xa;369&#xa;370&#xa;371&#xa;372&#xa;373&#xa;374&#xa;375&#xa;376&#xa;377&#xa;378&#xa;379&#xa;380&#xa;381&#xa;382&#xa;383&#xa;384&#xa;385&#xa;386&#xa;387&#xa;388&#xa;389&#xa;390&#xa;391&#xa;392&#xa;393&#xa;394&#xa;395&#xa;396&#xa;397&#xa;398&#xa;399&#xa;400&#xa;401&#xa;402&#xa;403&#xa;404&#xa;405&#xa;406&#xa;407&#xa;408&#xa;409&#xa;410&#xa;411&#xa;412&#xa;413&#xa;414&#xa;415&#xa;416&#xa;417&#xa;418&#xa;419&#xa;420&#xa;421&#xa;422&#xa;423&#xa;424&#xa;425&#xa;426&#xa;427&#xa;428&#xa;429&#xa;430&#xa;431&#xa;432&#xa;433&#xa;434&#xa;435&#xa;436&#xa;437&#xa;438&#xa;439&#xa;440&#xa;441&#xa;442&#xa;443&#xa;444&#xa;445&#xa;446&#xa;447&#xa;448&#xa;449&#xa;450&#xa;451&#xa;452&#xa;453&#xa;454&#xa;455&#xa;456&#xa;457&#xa;458&#xa;459&#xa;460&#xa;461&#xa;462&#xa;463&#xa;464&#xa;465&#xa;466&#xa;467&#xa;468&#xa;469&#xa;470&#xa;471&#xa;472&#xa;473&#xa;474&#xa;475&#xa;476&#xa;477&#xa;478&#xa;479&#xa;480&#xa;481&#xa;482&#xa;483&#xa;484&#xa;485&#xa;486&#xa;487&#xa;488&#xa;489&#xa;490&#xa;491&#xa;492&#xa;493&#xa;494&#xa;495&#xa;496&#xa;497&#xa;498&#xa;499&#xa;500&#xa;501&#xa;502&#xa;503&#xa;504&#xa;505&#xa;506&#xa;507&#xa;508&#xa;509&#xa;510&#xa;511&#xa;512&#xa;513&#xa;514&#xa;515&#xa;516&#xa;517&#xa;518&#xa;519&#xa;520&#xa;521&#xa;522&#xa;523&#xa;524&#xa;525&#xa;526&#xa;527&#xa;528&#xa;529&#xa;530&#xa;531&#xa;532&#xa;533&#xa;534&#xa;535&#xa;536&#xa;537&#xa;538&#xa;539&#xa;540&#xa;541&#xa;542&#xa;543&#xa;544&#xa;545&#xa;546&#xa;547&#xa;548&#xa;549&#xa;550&#xa;551&#xa;552&#xa;553&#xa;554&#xa;555&#xa;556&#xa;557&#xa;558&#xa;559&#xa;560&#xa;561&#xa;562&#xa;563&#xa;564&#xa;565&#xa;566&#xa;567&#xa;568&#xa;569&#xa;570&#xa;571&#xa;572&#xa;573&#xa;574&#xa;575&#xa;576&#xa;577&#xa;578&#xa;579&#xa;580&#xa;581&#xa;582&#xa;583&#xa;584&#xa;585&#xa;586&#xa;587&#xa;588&#xa;589&#xa;590&#xa;591&#xa;592&#xa;593&#xa;594&#xa;595&#xa;596&#xa;597&#xa;598&#xa;599&#xa;600&#xa;601&#xa;602&#xa;603&#xa;604&#xa;605&#xa;606&#xa;607&#xa;608&#xa;609&#xa;610&#xa;611&#xa;612&#xa;613&#xa;614&#xa;615&#xa;616&#xa;617&#xa;618&#xa;619&#xa;620&#xa;621&#xa;622&#xa;623&#xa;624&#xa;625&#xa;626&#xa;627&#xa;628&#xa;629&#xa;630&#xa;631&#xa;632&#xa;633&#xa;634&#xa;635&#xa;636&#xa;637&#xa;638&#xa;639&#xa;640&#xa;641&#xa;642&#xa;643&#xa;644&#xa;645&#xa;646&#xa;647&#xa;648&#xa;649&#xa;650&#xa;651&#xa;652&#xa;653&#xa;654&#xa;655&#xa;656&#xa;657&#xa;658&#xa;659&#xa;660&#xa;661&#xa;662&#xa;663&#xa;664&#xa;665&#xa;666&#xa;667&#xa;668&#xa;669&#xa;670&#xa;671&#xa;672&#xa;673&#xa;674&#xa;675&#xa;676&#xa;677&#xa;678&#xa;679&#xa;680&#xa;681&#xa;682&#xa;683&#xa;684&#xa;685&#xa;686&#xa;687&#xa;688&#xa;689&#xa;690&#xa;691&#xa;692&#xa;693&#xa;694&#xa;695&#xa;696&#xa;697&#xa;698&#xa;699&#xa;700&#xa;701&#xa;702&#xa;703&#xa;704&#xa;705&#xa;706&#xa;707&#xa;708&#xa;709&#xa;710&#xa;711&#xa;712&#xa;713&#xa;714&#xa;715&#xa;716&#xa;717&#xa;718&#xa;719&#xa;720&#xa;721&#xa;722&#xa;723&#xa;724&#xa;725&#xa;726&#xa;727&#xa;728&#xa;729&#xa;730&#xa;731&#xa;732&#xa;733&#xa;734&#xa;735&#xa;736&#xa;737&#xa;738&#xa;739&#xa;740&#xa;741&#xa;742&#xa;743&#xa;744&#xa;745&#xa;746&#xa;747&#xa;748&#xa;749&#xa;750&#xa;751&#xa;752&#xa;753&#xa;754&#xa;755&#xa;756&#xa;757&#xa;758&#xa;759&#xa;760&#xa;761&#xa;762&#xa;763&#xa;764&#xa;765&#xa;766&#xa;767&#xa;768&#xa;769&#xa;770&#xa;771&#xa;772&#xa;773&#xa;774&#xa;775&#xa;776&#xa;777&#xa;778&#xa;779&#xa;780&#xa;781&#xa;782&#xa;783&#xa;784&#xa;785&#xa;786&#xa;787&#xa;788&#xa;789&#xa;790&#xa;791&#xa;792&#xa;793&#xa;794&#xa;795&#xa;796&#xa;797&#xa;798&#xa;799&#xa;800&#xa;801&#xa;802&#xa;803&#xa;804&#xa;805&#xa;806&#xa;807&#xa;808&#xa;809&#xa;810&#xa;811&#xa;812&#xa;813&#xa;814&#xa;815&#xa;816&#xa;817&#xa;818&#xa;819&#xa;820&#xa;821&#xa;822&#xa;823&#xa;824&#xa;825&#xa;826&#xa;827&#xa;828&#xa;829&#xa;830&#xa;831&#xa;832&#xa;833&#xa;834&#xa;835&#xa;836&#xa;837&#xa;838&#xa;839&#xa;840&#xa;841&#xa;842&#xa;843&#xa;844&#xa;845&#xa;846&#xa;847&#xa;848&#xa;849&#xa;850&#xa;851&#xa;852&#xa;853&#xa;854&#xa;855&#xa;856&#xa;857&#xa;858&#xa;859&#xa;860&#xa;861&#xa;862&#xa;863&#xa;864&#xa;865&#xa;866&#xa;867&#xa;868&#xa;869&#xa;870&#xa;871&#xa;872&#xa;873&#xa;874&#xa;875&#xa;876&#xa;877&#xa;878&#xa;879&#xa;880&#xa;881&#xa;882&#xa;883&#xa;884&#xa;885&#xa;886&#xa;887&#xa;888&#xa;889&#xa;890&#xa;891&#xa;892&#xa;893&#xa;894&#xa;895&#xa;896&#xa;897&#xa;898&#xa;899&#xa;900&#xa;901&#xa;902&#xa;903&#xa;904&#xa;905&#xa;906&#xa;907&#xa;908&#xa;909&#xa;910&#xa;911&#xa;912&#xa;913&#xa;914&#xa;915&#xa;916&#xa;917&#xa;918&#xa;919&#xa;920&#xa;921&#xa;922&#xa;923&#xa;924&#xa;925&#xa;926&#xa;927&#xa;928&#xa;929&#xa;930&#xa;931&#xa;932&#xa;933&#xa;934&#xa;935&#xa;936&#xa;937&#xa;938&#xa;939&#xa;940&#xa;941&#xa;942&#xa;943&#xa;944&#xa;945&#xa;946&#xa;947&#xa;948&#xa;949&#xa;950&#xa;951&#xa;952&#xa;953&#xa;954&#xa;955&#xa;956&#xa;957&#xa;958&#xa;959&#xa;960&#xa;961&#xa;962&#xa;963&#xa;964&#xa;965&#xa;966&#xa;967&#xa;968&#xa;969&#xa;970&#xa;971&#xa;972&#xa;973&#xa;974&#xa;975&#xa;976&#xa;977&#xa;978&#xa;979&#xa;980&#xa;981&#xa;982&#xa;983&#xa;984&#xa;985&#xa;986&#xa;987&#xa;988&#xa;989&#xa;990&#xa;991&#xa;992&#xa;993&#xa;994&#xa;995&#xa;996&#xa;997&#xa;998&#xa;999&#xa;1000&#xa;"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                  <JSplitPaneConstraints position="left"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="AutoSiembra"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Salida"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtAreaSalida">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="COMPONENTES LEXICOS"/>
+          </Border>
+        </Property>
+        <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tableTS">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="2" rowCount="0">
+                <Column editable="false" title="TOKEN" type="java.lang.Object"/>
+                <Column editable="false" title="LEXEMA" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="130" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="130" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jToolBar1" alignment="1" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jToolBar1" min="-2" pref="41" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JToolBar" name="jToolBar1">
+          <Properties>
+            <Property name="floatable" type="boolean" value="false"/>
+            <Property name="rollover" type="boolean" value="true"/>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="btnLexico">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icons/Lexico.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLexicoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton2">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icons/Lexico.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnLimpiar">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icons/Limpiar.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAbrir">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icons/Abrir.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAbrirActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnGuardar">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icons/Guardar.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Integrantes del Equipo"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="14400941       Gil Llanos Juan Pedro"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="14400944       Gonz&#xe1;lez Arellano Ernesto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="14400968       Monroy Salcedo Jose de Jesus"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="14401007      Sanchez Carrillo Betsy del Carmen"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Icons/Hojita.png"/>
+        </Property>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

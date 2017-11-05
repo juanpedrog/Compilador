@@ -68,9 +68,7 @@ public class Ventana extends javax.swing.JFrame {
         errores=0;
         txtAreaSalida.setFont(txtAreaSalida.getFont().deriveFont(16f));
         txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f));
-        txtAreaNum.setFont(txtAreaNum.getFont().deriveFont(16f));
-        btnLexico.setVisible(false);
-        jScrollPane3.setVisible(false);
+        
                         
     }
 
@@ -186,7 +184,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLexico);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -370,7 +368,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -384,6 +382,9 @@ public class Ventana extends javax.swing.JFrame {
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
         errores=0;
+        boolean simbolo=false,declaracion=false,asignacion=false;
+        String[] auxSimbolo=new String[0];//Guarda los datos que se insertarán en la tabla de símbolos
+        Tabla_Simbolos tabla=new Tabla_Simbolos();
 
         try{
             writer = new PrintWriter(codigo);
@@ -424,10 +425,32 @@ public class Ventana extends javax.swing.JFrame {
                         resultado+="ERROR, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
+                    case PALABRA_RESERVADA:
+                        if(lexer.lexeme.equals("ENT")){
+                            declaracion=true;
+                            auxSimbolo=new String[4];
+                            auxSimbolo[1]=token.toString();
+                        }
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        break;
                     default:
                         model.addRow(new Object[]{token,lexer.lexeme});
                         
-                } 
+                }
+                if(declaracion){
+                    auxSimbolo[0]=token.toString();
+                    if(!tabla.revisar(token.toString())){
+                        JOptionPane.showMessageDialog(this, "ErrorSemantico");
+                    }else{
+                        auxSimbolo[2]=""+lexer.linea+1;
+                        if(tabla.nuevoSimbolo(auxSimbolo)){
+                            JOptionPane.showMessageDialog(this, "Exito en tabla de simbolos");
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Error en tabla de simbolos");
+                        }
+                    }
+                    declaracion=false;
+                }
             }
             
         } catch (FileNotFoundException ex) {
@@ -573,16 +596,16 @@ public class Ventana extends javax.swing.JFrame {
         try {
             Reader reader = new BufferedReader(new FileReader("Codigo.txt"));
             Lexer lexer = new Lexer(reader);
-            String resultado="";
+            String resultado="\n\n";
             DefaultTableModel model = (DefaultTableModel)tableTS.getModel();
-            /*while(model.getRowCount()!=0){
+            while(model.getRowCount()!=0){
                 model.removeRow(0);   
-            }*/
+            }
             boolean para=true;
             while(para){
                 Token token = lexer.yylex();
                 if(token == null){
-                    //tableTS.setModel(model);
+                    tableTS.setModel(model);
                     if(errores>0){
                         AnalizadorSintactico.cadStatic+="\n"+resultado;
                         mostrar();
@@ -593,19 +616,19 @@ public class Ventana extends javax.swing.JFrame {
                 switch(token){
                     //Quitar la cosa que lo muestra
                     case CADENA_DESCONOCIDA:                        
-                        //model.addRow(new Object[]{token,lexer.lexeme});
+                        model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
-                        resultado+="Error léxico Linea "+(lexer.linea+1)+" cadena desconocida "+lexer.lexeme+"\n";
+                        resultado+="ERROR, cadena no valida: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
                     case SIMBOLO_DESCONOCIDO:                        
-                        //model.addRow(new Object[]{token,lexer.lexeme});
+                        model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
-                        resultado+="Error léxico Linea "+(lexer.linea+1)+" cadena desconocida "+lexer.lexeme+"\n";
+                        resultado+="ERROR, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
                     default:
-                        //model.addRow(new Object[]{token,lexer.lexeme});
+                        model.addRow(new Object[]{token,lexer.lexeme});
                         
                 } 
                 }
@@ -617,9 +640,10 @@ public class Ventana extends javax.swing.JFrame {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+        
+    
     public static void mostrar(){
-        if(AnalizadorSintactico.cadStatic.equals("Analisis completado. Sin errores")){
+        if(AnalizadorSintactico.cadStatic.equals("Sin errores sintácticos")){
             txtAreaSalida.setForeground(Color.blue);
         }else{
             txtAreaSalida.setForeground(Color.red);

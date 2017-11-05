@@ -386,10 +386,7 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
             if (s.left >= 0) {                
-                m.append(" Linea "+(s.left+1)+" Valor "+(s.value.toString())+" inesperado");
-            }
-            else{
-            m=new StringBuilder("");
+                m.append(" Linea "+(s.left+1)+" Cerca de "+(s.value.toString()));
             }
         }
         cadStatic= m.toString();
@@ -418,7 +415,8 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
                     new AnalizadorLexico( new FileReader(args[0])));
             asin.parse();
             System.out.println("\n*** Resultados finales ***");
-            if(a){cadStatic="Analisis completado. Sin errores";Ventana.mostrar();}
+            if(a){cadStatic="Sin errores sintácticos";}
+            Ventana.mostrar();
             a=true;
         } catch (Exception ex) {
             ex.printStackTrace();

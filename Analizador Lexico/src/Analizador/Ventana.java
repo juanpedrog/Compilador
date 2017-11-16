@@ -99,6 +99,7 @@ public class Ventana extends javax.swing.JFrame {
         btnAbrir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnTabla = new javax.swing.JButton();
+        btnRecorrido = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -231,6 +232,17 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnTabla);
+
+        btnRecorrido.setText("Recorrido");
+        btnRecorrido.setFocusable(false);
+        btnRecorrido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRecorrido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRecorrido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecorridoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnRecorrido);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -393,7 +405,7 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btnLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLexicoActionPerformed
         // TODO add your handling code here:
-        
+        Gramatica.camino="";
         banderaErrorLexico = false;
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
@@ -595,9 +607,6 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here: 
         //////////////////////////////////////////
         g.programa(gramatica);
-        if(g.resultado){
-            System.out.print(g.camino);
-        }
         //Analisis Sintáctico
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
@@ -698,6 +707,12 @@ public class Ventana extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnTablaActionPerformed
+
+    private void btnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecorridoActionPerformed
+        // TODO add your handling code here:
+        Recorrido r=new Recorrido();
+        r.setVisible(true);
+    }//GEN-LAST:event_btnRecorridoActionPerformed
         
     
     public static void mostrar(){
@@ -752,6 +767,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLexico;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnRecorrido;
     private javax.swing.JButton btnTabla;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

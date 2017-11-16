@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Gramatica {
     int i=0;
-    public String camino="";
+    public static String camino="";
     boolean resultado=true;
     public void programa(ArrayList<String> token){
         String aux=token.get(i);
@@ -134,8 +134,8 @@ public class Gramatica {
                     ||token.get(i).equals("EXC")||token.get(i).equals("GIRAD")||token.get(i).equals("GIRAI")
                     ||token.get(i).equals("LUZ")||token.get(i).equals("MOVAD")||token.get(i).equals("MOVAT")
                     ||token.get(i).equals("SPD")){
-                i++;
-                camino+=token.get(i)+" se va por linea\n";
+            camino+=token.get(i)+" se va por linea\n";    
+            i++;
                 if(token.get(i).equals("(")){
                     i++;
                     camino+="( se va por linea\n";

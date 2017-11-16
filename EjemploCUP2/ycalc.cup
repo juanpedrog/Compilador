@@ -1,0 +1,94 @@
+package jlexcup;
+import java_cup.runtime.*; 
+import java.io.*;
+import java.util.*;
+
+action code{:
+     public void ImprimeValor(String str){
+        System.out.println("el valor del token"+str) ;
+     }
+:};
+parser code{:
+
+    public void syntax_error(Symbol st){
+       token t=(token)st.value;
+       report_error("Error Sintactico:"+ t.getValue(),null);
+    }
+
+    public static void cargar(String archivo) throws Exception{
+        new parser(new scanner(new FileInputStream(archivo))).parse();
+    }
+
+
+:};
+
+
+non terminal programa, principal,lineascodigo,lineacodigo,linea;
+non terminal invocarmetodo,parametrosenvio,parenvio,penvio;
+non terminal crearvariable,tipodato,asignvalor,operaasignacion;
+non terminal expresion,t,f,cambiarvalor,cambvalor,buclecondicion;
+non terminal condicionif,condicionsi,condicion,condicional;
+non terminal buclewhile,funciones,funcion,parametrosin;
+non terminal parametros,parametro;
+
+terminal 
+OP_ARITMETICO_ADD,OP_ARITMETICO_SUB,OP_ARITMETICO_MUL,OP_ARITMETICO_DIV,NUM_FLOTANTE,NUM_ENTERO,OP_RELACIONAL_IIGUAL,OP_RELACIONAL_MAIGUAL,OP_RELACIONAL_MEIGUAL,OP_RELACIONAL_DIFERENTE,OP_RELACIONAL_MAQUE,OP_RELACIONAL_MEQUE,SIMBOLO_ASIGNACION,SIMBOLO_AGRUPACION_PABRE,SIMBOLO_AGRUPACION_PACIERRA,SIMBOLO_AGRUPACION_DOSP,SIMBOLO_AGRUPACION_PCOMA,SIMBOLO_AGRUPACION_CABRE,SIMBOLO_AGRUPACION_CCIERRA,COMA,FIN_LINEA,PALABRA_RESERVADA_ACTM,PALABRA_RESERVADA_APG,PALABRA_RESERVADA__BOO,PALABRA_RESERVADA_CJT,PALABRA_RESERVADA_CLX,PALABRA_RESERVADA_COM,PALABRA_RESERVADA_DET,PALABRA_RESERVADA_DETENTE,PALABRA_RESERVADA_ECD,PALABRA_RESERVADA_EFEC,PALABRA_RESERVADA_ENT,PALABRA_RESERVADA_ENT,PALABRA_RESERVADA_FLO,PALABRA_RESERVADA_FLS,PALABRA_RESERVADA_FUNC,PALABRA_RESERVADA_GIRAI,PALABRA_RESERVADA_GIRAD,PALABRA_RESERVADA_LUZ,PALABRA_RESERVADA_MOVAD,PALABRA_RESERVADA_MOVAT,PALABRA_RESERVADA_S,PALABRA_RESERVADA_SN,PALABRA_RESERVADA_SPD,PALABRA_RESERVADA_VDD,IDENTIFICADOR;
+
+
+start with programa;
+
+programa ::= principal funciones | principal ;
+
+principal ::= PALABRA_RESERVADA_EFEC PALABRA_RESERVADA_FUNC SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA | lineascodigo ;
+
+lineascodigo ::= lineacodigo | ; 
+
+lineacodigo ::= lineascodigo linea | linea ;
+
+linea ::= invocarmetodo FIN_LINEA | crearvariable FIN_LINEA | cambiarvalor FIN_LINEA | buclecondicion ; 	
+
+invocarmetodo ::= IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosenvio SIMBOLO_AGRUPACION_PACIERRA;
+
+parametrosenvio ::= parenvio | ;
+
+parenvio ::= parenvio COMA;
+
+penvio ::= IDENTIFICADOR | NUM_FLOTANTE | NUM_ENTERO ; 
+
+crearvariable ::= tipodato IDENTIFICADOR | tipodato IDENTIFICADOR asignvalor ;
+
+tipodato ::= PALABRA_RESERVADA_BOO | PALABRA_RESERVADA_FLO | PALABRA_RESERVADA_ENT ;
+
+asignvalor ::= SIMBOLO_ASIGNACION operasignacion | SIMBOLO_ASIGNACION penvio | SIMBOLO_ASIGNACION IDENTIFICADOR;
+
+operasignacion ::= expresion |invocarmetodo ; 
+
+expresion ::= expresion OP_ARITMETICO_ADD t | expresion OP_ARITMETICO_SUB t | t ; 
+
+t ::= t OP_ARITMETICO_MUL f | t OP_ARITMETICO_DIV f | f ;
+
+f ::= IDENTIFICADOR | NUM_FLOTANTE | NUM_ENTERO | SIMBOLO_AGRUPACION_PABRE expresion SIMBOLO_AGRUPACION_PACIERRA 
+
+cambiarvalor ::= IDENTIFICADOR SIMBOLO_ASIGNACION cambvalor;
+
+cambvalor ::= penvio | expresion ; 
+
+buclecondicion ::= condicionif | buclewhile ; 
+
+condicionif ::= condicionsi;
+
+condicionsi ::= PALABRA_RESERVADA_COM SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP PALABRA_RESERVADA_SI SIMBOLO_AGRUPACION_DOSP lineascodigo  SIMBOLO_AGRUPACION_PCOMA PALABRA_RESERVADA_SINO SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA SIMBOLO_AGRUPACION_PCOMA;
+
+condicion ::= penvio condicional penvio
+
+condicional ::= OP_RELACIONAL_IIGUAL | OP_RELACIONAL_MAIGUAL | OP_RELACIONAL_MEIGUAL | OP_RELACIONAL_DIFERENTE | OP_RELACIONAL_MAQUE | OP_RELACIONAL_MEQUE ;
+
+buclewhile ::= PALABRA_RESERVADA_ACTM SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo ;
+
+funciones ::= PALABRA_RESERVADA_FUNC IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosin SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo;
+
+parametrosin ::= parametros | ; 
+
+parametros ::= parametros COMA parametro | parametro;
+
+parametro ::= tipodato IDENTIFICADOR

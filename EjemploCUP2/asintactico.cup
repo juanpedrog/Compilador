@@ -1,0 +1,135 @@
+package ejemplocup;
+import java_cup.runtime.*; 
+import java.io.*;
+import java.util.*;
+
+action code{:
+     public void ImprimeValor(String str){
+        System.out.println("el valor del token"+str) ;
+     }
+:};
+init with{:
+   vars=0;
+:}
+parser code{:
+   public static int vars;
+
+     /* Reporte de error encontrado. */
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("Error");
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        System.err.println(m);
+    }
+   
+    /* Cuando se encuentra un error de donde el sistema no puede
+        recuperarse, se lanza un error fatal. Se despliega el mensaje
+        de error y se finaliza la ejecucion. */
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+    /* Metodo main para garantizar la ejecucion del analizador
+       lexico y sintactico, ademas que se pase como parametro la tabla
+       de simbolos correspondiente. */
+    public static void main(String[] args){
+        try {
+            AnalizadorSintactico asin = new AnalizadorSintactico(
+                    new AnalizadorLexico( new FileReader(args[0])));
+            Object result = asin.parse().value;
+            System.out.println("\n*** Resultados finales ***");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+:};
+
+
+
+non terminal Object programa, principal,lineascodigo,lineacodigo,linea;
+non terminal Object invocarmetodo,parametrosenvio,parenvio,penvio;
+non terminal Object crearvariable,tipodato,asignvalor,operasignacion;
+non terminal Object expresion,t,f,cambiarvalor,cambvalor,buclecondicion;
+non terminal Object condicionif,condicionsi,condicion,condicional;
+non terminal Object buclewhile,funciones,funcion,parametrosin;
+non terminal Object parametros,parametro,valor,epri,tpri,h,j,x;
+
+
+terminal OP_ARITMETICO_ADD,OP_ARITMETICO_SUB,OP_ARITMETICO_MUL,OP_ARITMETICO_DIV,NUM_FLOTANTE,NUM_ENTERO,OP_RELACIONAL_IIGUAL,OP_RELACIONAL_MAIGUAL,OP_RELACIONAL_MEIGUAL,OP_RELACIONAL_DIFERENTE,OP_RELACIONAL_MAQUE,OP_RELACIONAL_MEQUE,SIMBOLO_ASIGNACION,SIMBOLO_AGRUPACION_PABRE,SIMBOLO_AGRUPACION_PACIERRA,SIMBOLO_AGRUPACION_DOSP,SIMBOLO_AGRUPACION_PCOMA,SIMBOLO_AGRUPACION_CABRE,SIMBOLO_AGRUPACION_CCIERRA,COMA,FIN_LINEA,PALABRA_RESERVADA_ACTM,PALABRA_RESERVADA_APG,PALABRA_RESERVADA_CJT,PALABRA_RESERVADA_CLX,PALABRA_RESERVADA_COM,PALABRA_RESERVADA_DET,PALABRA_RESERVADA_DETENTE,PALABRA_RESERVADA_ECD,PALABRA_RESERVADA_EFEC,PALABRA_RESERVADA_ENT,PALABRA_RESERVADA_FLO,PALABRA_RESERVADA_FLS,PALABRA_RESERVADA_FUNC,PALABRA_RESERVADA_GIRAI,PALABRA_RESERVADA_GIRAD,PALABRA_RESERVADA_LUZ,PALABRA_RESERVADA_MOVAD,PALABRA_RESERVADA_MOVAT,PALABRA_RESERVADA_S,PALABRA_RESERVADA_SN,PALABRA_RESERVADA_SPD,PALABRA_RESERVADA_VDD,IDENTIFICADOR,PALABRA_RESERVADA_BOO,PALABRA_RESERVADA_SI,PALABRA_RESERVADA_SINO,CADENA_DESCONOCIDA,SIMBOLO_DESCONOCIDO;
+
+
+start with programa;
+
+programa ::= PALABRA_RESERVADA_FUNC principal funciones | PALABRA_RESERVADA_FUNC principal ;
+
+principal ::=  PALABRA_RESERVADA_EFEC  SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA | lineascodigo ;
+
+
+lineascodigo ::= lineacodigo | ; 
+
+lineacodigo ::= lineacodigo linea | linea ;
+
+linea ::= invocarmetodo FIN_LINEA | crearvariable FIN_LINEA | cambiarvalor FIN_LINEA | buclecondicion ; 	
+
+invocarmetodo ::= IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosenvio SIMBOLO_AGRUPACION_PACIERRA;
+
+parametrosenvio ::= parenvio | ;
+
+parenvio ::= parenvio COMA penvio | penvio;
+
+penvio ::= IDENTIFICADOR | valor ; 
+
+valor ::= NUM_FLOTANTE | NUM_ENTERO;
+
+crearvariable ::= tipodato IDENTIFICADOR | tipodato IDENTIFICADOR SIMBOLO_ASIGNACION asignvalor;
+
+tipodato ::= PALABRA_RESERVADA_BOO | PALABRA_RESERVADA_FLO | PALABRA_RESERVADA_ENT ;
+
+asignvalor ::= operasignacion ;
+
+operasignacion ::= expresion |invocarmetodo ; 
+
+expresion ::= valor x | h;
+x::= valor x | j ;
+j ::= valor | t;
+h::= t epri;
+epri ::= OP_ARITMETICO_ADD t epri| OP_ARITMETICO_SUB t epri |  ; 
+
+t ::= f tpri;
+tpri ::= OP_ARITMETICO_MUL f tpri| OP_ARITMETICO_DIV f tpri |  ;
+
+f ::= valor | IDENTIFICADOR | SIMBOLO_AGRUPACION_PABRE expresion SIMBOLO_AGRUPACION_PACIERRA; 
+
+cambiarvalor ::= IDENTIFICADOR SIMBOLO_ASIGNACION cambvalor;
+
+cambvalor ::= expresion ; 
+
+buclecondicion ::= condicionif | buclewhile ; 
+
+condicionif ::= condicionsi;
+
+condicionsi ::= PALABRA_RESERVADA_COM SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP PALABRA_RESERVADA_SI SIMBOLO_AGRUPACION_DOSP lineascodigo  SIMBOLO_AGRUPACION_PCOMA PALABRA_RESERVADA_SINO SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA SIMBOLO_AGRUPACION_PCOMA;
+
+condicion ::= valor condicional valor | valor condicional IDENTIFICADOR | IDENTIFICADOR condicional valor | IDENTIFICADOR condicional IDENTIFICADOR;
+
+condicional ::= OP_RELACIONAL_IIGUAL | OP_RELACIONAL_MAIGUAL | OP_RELACIONAL_MEIGUAL | OP_RELACIONAL_DIFERENTE | OP_RELACIONAL_MAQUE | OP_RELACIONAL_MEQUE ;
+
+buclewhile ::= PALABRA_RESERVADA_ACTM SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA ;
+
+funciones  ::= funciones funcion | funcion;
+
+funcion ::= PALABRA_RESERVADA_FUNC IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosin SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA;
+
+parametrosin ::= parametros | ; 
+
+parametros ::= parametros COMA parametro | parametro;
+
+parametro ::= tipodato IDENTIFICADOR;

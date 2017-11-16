@@ -1,5 +1,0 @@
-FUNC EFEC:
-	ENT a|
-;
-
-

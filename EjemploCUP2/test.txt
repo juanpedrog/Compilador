@@ -1,0 +1,8 @@
+FUNC EFEC:
+	FLO c=2|
+	c=2+2+2+2*3|
+
+;
+FUNC otra(ENT a):
+
+;

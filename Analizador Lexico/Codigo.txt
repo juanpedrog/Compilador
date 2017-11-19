@@ -1,34 +1,3 @@
 FUNC EFEC:
-	ECD()|
-	sembrar(5,0)|
-	CLX()|
-	APG()|
+	ENT a=1|ENT b=1|
 ;
-FUNC sembrar(ENT distancia,ENT zurcos):	
-	ENT aux=distancia|
-	ENT zurcaux=zurcos|
-	COM(zurcos==9):
-	S:
-		CLX()|
-		APG()|
-	;
-	SN:
-	ENT i=0|
-	ACTM (i<6):
-	MOVAD(distancia)|
-	distancia=distancia+distancia|
-	i=i++1|
-	EXC()|
-	;
-	MOVAT(distancia)|
-	GIRAD()|
-	MOVAD(1)|
-	GIRAI()|
-	;
-	;
-	zurcoaux=zurcos++1|
-	sembrar(aux,zurcoaux)|
-;
-
-
-

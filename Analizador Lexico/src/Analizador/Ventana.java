@@ -496,7 +496,7 @@ public class Ventana extends javax.swing.JFrame {
                         break;
                     case NUM_ENTERO:
                         if(asignacion){
-                            if(tipo.equals("ENT")){
+                            if(tipo.equals("ENT")||tipo.equals("FLO")||tipo.equals("BOO")){
                                 asignacion=false;
                                 tabla.actualizar(nombreID,lexer.lexeme);
                             }

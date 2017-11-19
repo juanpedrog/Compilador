@@ -230,21 +230,21 @@ public class Gramatica {
         }
     }
     public void bucleWhile(ArrayList<String> token){
-        camino+=token.get(i)+" se va por bucleWhile";
+        camino+=token.get(i)+" se va por bucleWhile\n";
         i++;
         if(token.get(i).equals("(")){
-            camino+=token.get(i)+" se va por bucleWhile";
+            camino+=token.get(i)+" se va por bucleWhile\n";
             i++;
             condicion(token);
             if(token.get(i).equals(")")){
-                camino+=token.get(i)+" se va por bucleWhile";
+                camino+=token.get(i)+" se va por bucleWhile\n";
                 i++;
                 if(token.get(i).equals(":")){
-                    camino+=token.get(i)+" se va por bucleWhile";
+                    camino+=token.get(i)+" se va por bucleWhile\n";
                     i++;
                     lineasCodigo(token);
                     if(token.get(i).equals(";")){
-                        camino+=token.get(i)+" se va por bucleWhile";
+                        camino+=token.get(i)+" se va por bucleWhile\n";
                         i++;
                         return;
                     }

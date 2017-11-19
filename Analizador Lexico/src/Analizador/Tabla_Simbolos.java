@@ -35,6 +35,16 @@ public class Tabla_Simbolos {
         }
         return true;
     }
+    String sacarValor(String nombre){
+        String[] aux;
+        for(int i=0;i<tabla.size();i++){
+            aux=tabla.get(i);
+            if(aux[0].equals(nombre)){
+                return aux[3];
+            }
+        }
+        return null;
+    }
     boolean actualizar(String nombre,String valor){
         if(revisar(nombre)){
             return false;

@@ -342,7 +342,6 @@ public class Gramatica {
             camino+=token.get(i)+" se va por f\n";
             i++;
         }
-        return;
     }
     public void cambValor(ArrayList<String> token){
         expresion(token);
@@ -358,7 +357,6 @@ public class Gramatica {
             }else{
                
             }
-            
         }
     }
     public void epri(ArrayList<String> token){
@@ -386,7 +384,6 @@ public class Gramatica {
                 if(token.get(i).equals(")")){
                     camino+=") se va por f\n";
                     i++;
-                    return;
                 }else{
                     resultado=false;
                 }

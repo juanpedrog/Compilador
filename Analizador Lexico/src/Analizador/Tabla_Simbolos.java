@@ -45,6 +45,20 @@ public class Tabla_Simbolos {
         }
         return null;
     }
+
+    String sacarTipo(String nombre){
+        String[] aux;
+        for(int i=0;i<tabla.size();i++){
+            aux=tabla.get(i);
+            if(aux[0].equals(nombre)){
+                return aux[1];
+            }
+        }
+        return null;
+    }
+    public void inicializar(){
+        tabla=new ArrayList<String[]>();
+    }
     boolean actualizar(String nombre,String valor){
         if(revisar(nombre)){
             return false;

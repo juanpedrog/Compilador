@@ -1,3 +1,7 @@
 FUNC EFEC:
-	ENT a=1|ENT b=1|
+ENT a=21|
+ENT b=1|
+COM(a<b):
+S:;SN:;
+;
 ;

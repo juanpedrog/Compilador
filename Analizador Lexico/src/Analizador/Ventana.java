@@ -46,6 +46,7 @@ public class Ventana extends javax.swing.JFrame {
     Gramatica g=new Gramatica();
     ArrayList<String> gramatica=new ArrayList<String>();
     boolean comparacion=false;
+    boolean soloVDD=false,soloVDDComparacion=false;
     String numComparacion=null,varComparacion=null;
     
     
@@ -413,6 +414,9 @@ public class Ventana extends javax.swing.JFrame {
         PrintWriter writer;
         errores=0;
         boolean simbolo=false,declaracion=false,asignacion=false;
+        comparacion=false;
+        soloVDD=false;
+        soloVDDComparacion=false;
         String nombreID="",tipo="";
         String[] auxSimbolo=new String[0];//Guarda los datos que se insertarán en la tabla de símbolos
         tabla=new Tabla_Simbolos();
@@ -486,6 +490,9 @@ public class Ventana extends javax.swing.JFrame {
                             asignacion=false;
                             tabla.actualizar(nombreID,lexer.lexeme);
                         }
+                        if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
+                            soloVDDComparacion=true;
+                        }
                         nombreID=lexer.lexeme;
                         if(comparacion){
                             String tipo1,tipo2;
@@ -505,6 +512,21 @@ public class Ventana extends javax.swing.JFrame {
                             auxSimbolo[1]=lexer.lexeme;
                             tipo=lexer.lexeme;
                         }
+                        if(lexer.lexeme.equals("VDD")||lexer.lexeme.equals("FLS")){
+                            if(asignacion){
+                                if(!soloVDD){
+                                    JOptionPane.showMessageDialog(this, "Error semántico");
+                                }else{
+                                    asignacion=false;
+                                    tabla.actualizar(nombreID,lexer.lexeme);
+                                }
+                            }
+                        }
+                        if(lexer.lexeme.equals("BOO")){
+                            soloVDD=true;
+                        }else{
+                            soloVDD=false;
+                        }
                         model.addRow(new Object[]{token,lexer.lexeme});
                         break;
                     case SIMBOLO_ASIGNACION:
@@ -513,9 +535,11 @@ public class Ventana extends javax.swing.JFrame {
                         break;
                     case NUM_ENTERO:
                         if(asignacion){
-                            if(tipo.equals("ENT")||tipo.equals("FLO")||tipo.equals("BOO")){
+                            if(tipo.equals("ENT")||tipo.equals("FLO")){
                                 asignacion=false;
                                 tabla.actualizar(nombreID,lexer.lexeme);
+                            }else{
+                                JOptionPane.showMessageDialog(this,"Error semántico");
                             }
                         }
                         if(comparacion){
@@ -534,6 +558,11 @@ public class Ventana extends javax.swing.JFrame {
                         break;
                     case OP_RELACIONAL:
                         comparacion=true;
+                        if(soloVDDComparacion){
+                            if(!lexer.lexeme.equals("==")){
+                                JOptionPane.showMessageDialog(this, "Error semantico");
+                            }
+                        }
                         break;
                     default:
                         model.addRow(new Object[]{token,lexer.lexeme});

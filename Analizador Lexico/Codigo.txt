@@ -1,7 +1,4 @@
 FUNC EFEC:
-ENT a=21|
-ENT b=1|
-COM(a<b):
-S:;SN:;
-;
+	ENT a=a|
+	ENT b=c|
 ;

@@ -27,6 +27,8 @@ public class Tabla_Simbolos_Grafica extends javax.swing.JFrame {
         model.addColumn("Tipo");
         model.addColumn("Linea");
         model.addColumn("Valor");
+        model.addColumn("Declarado en");
+        
         for(int i=0;i<datos.size();i++){
             model.addRow(datos.get(i));
         }

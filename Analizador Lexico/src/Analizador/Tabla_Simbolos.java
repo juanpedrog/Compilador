@@ -18,6 +18,7 @@ public class Tabla_Simbolos {
         //posición 1=Tipo
         //posición 2=Número de linea
         //posición 3=valor
+        //posición 4=funcion de posicion
         if(revisar(simbolo[0])){
             tabla.add(simbolo);
         }else{
@@ -45,7 +46,16 @@ public class Tabla_Simbolos {
         }
         return null;
     }
-
+    String sacarFuncion(String nombre){
+        String[] aux;
+        for(int i=0;i<tabla.size();i++){
+            aux=tabla.get(i);
+            if(aux[0].equals(nombre)){
+                return aux[4];
+            }
+        }
+        return null;
+    }
     String sacarTipo(String nombre){
         String[] aux;
         for(int i=0;i<tabla.size();i++){

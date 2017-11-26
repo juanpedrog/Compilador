@@ -46,10 +46,8 @@ public class Ventana extends javax.swing.JFrame {
     Gramatica g=new Gramatica();
     ArrayList<String> gramatica=new ArrayList<String>();
     boolean comparacion=false;
-    boolean soloVDD=false,soloVDDComparacion=false;
-    String numComparacion=null,varComparacion=null;
-    
-    
+    boolean soloVDD=false,soloVDDComparacion=false,declararFuncion=false;
+    String numComparacion=null,varComparacion=null;    
     /**
      * Creates new form Ventana
      */
@@ -409,6 +407,7 @@ public class Ventana extends javax.swing.JFrame {
     private void btnLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLexicoActionPerformed
         // TODO add your handling code here:
         Gramatica.camino="";
+        String funcion="";
         banderaErrorLexico = false;
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
@@ -461,6 +460,7 @@ public class Ventana extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ErrorSemantico "+auxSimbolo[0]);
                     }else{
                         auxSimbolo[2]=""+(lexer.linea+1);
+                        auxSimbolo[4]=funcion;
                         if(tabla.nuevoSimbolo(auxSimbolo)){
                             JOptionPane.showMessageDialog(this, "Exito en tabla de simbolos");
                         }else{
@@ -486,9 +486,25 @@ public class Ventana extends javax.swing.JFrame {
                         errores++;
                         break;
                     case IDENTIFICADOR:
+                        if(declararFuncion){
+                            auxSimbolo=new String[5];
+                            auxSimbolo[0]=lexer.lexeme;
+                            auxSimbolo[1]="FUNC";
+                            funcion=lexer.lexeme;
+                            auxSimbolo[2]=lexer.linea+1+"";
+                            tabla.nuevoSimbolo(auxSimbolo);
+                        }
                         if(asignacion){
                             asignacion=false;
-                            tabla.actualizar(nombreID,lexer.lexeme);
+                            if(tabla.sacarFuncion(lexer.lexeme).equals(funcion)){
+                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                    tabla.actualizar(nombreID,lexer.lexeme);
+                                }else{
+                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                            }
                         }
                         if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
                             soloVDDComparacion=true;
@@ -506,9 +522,17 @@ public class Ventana extends javax.swing.JFrame {
                         varComparacion=lexer.lexeme;
                         break;
                     case PALABRA_RESERVADA:
+                        if(lexer.lexeme.equals("EFEC")){
+                            funcion="EFEC";
+                        }
+                        if(lexer.lexeme.equals("FUNC")){
+                            declararFuncion=true;
+                        }else{
+                            declararFuncion=false;
+                        }
                         if(lexer.lexeme.equals("ENT") || lexer.lexeme.equals("FLO") || lexer.lexeme.equals("BOO")){
                             declaracion=true;
-                            auxSimbolo=new String[4];
+                            auxSimbolo=new String[5];
                             auxSimbolo[1]=lexer.lexeme;
                             tipo=lexer.lexeme;
                         }
@@ -518,7 +542,11 @@ public class Ventana extends javax.swing.JFrame {
                                     JOptionPane.showMessageDialog(this, "Error semántico");
                                 }else{
                                     asignacion=false;
-                                    tabla.actualizar(nombreID,lexer.lexeme);
+                                    if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                        tabla.actualizar(nombreID,lexer.lexeme);
+                                    }else{
+                                        JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                    }
                                 }
                             }
                         }
@@ -537,7 +565,38 @@ public class Ventana extends javax.swing.JFrame {
                         if(asignacion){
                             if(tipo.equals("ENT")||tipo.equals("FLO")){
                                 asignacion=false;
-                                tabla.actualizar(nombreID,lexer.lexeme);
+                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                    tabla.actualizar(nombreID,lexer.lexeme);
+                                }else{
+                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this,"Error semántico");
+                            }
+                        }
+                        if(comparacion){
+                            if(numComparacion==null){
+                                if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
+                                    
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Error semantico");
+                                }
+                            }
+                        }else{
+                            numComparacion=null;
+                        }
+                        numComparacion=lexer.lexeme;
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        break;
+                    case NUM_FLOTANTE:
+                        if(asignacion){
+                            if(tipo.equals("FLO")){
+                                asignacion=false;
+                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                    tabla.actualizar(nombreID,lexer.lexeme);
+                                }else{
+                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                }
                             }else{
                                 JOptionPane.showMessageDialog(this,"Error semántico");
                             }

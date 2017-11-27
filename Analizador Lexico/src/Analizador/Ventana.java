@@ -101,6 +101,7 @@ public class Ventana extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnTabla = new javax.swing.JButton();
         btnRecorrido = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -245,6 +246,17 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRecorrido);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -279,7 +291,7 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -833,6 +845,13 @@ public class Ventana extends javax.swing.JFrame {
         Recorrido r=new Recorrido();
         r.setVisible(true);
     }//GEN-LAST:event_btnRecorridoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Codigo_Arduino arduino = new Codigo_Arduino();
+        arduino.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        arduino.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
         
     
     public static void mostrar(){
@@ -889,6 +908,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRecorrido;
     private javax.swing.JButton btnTabla;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

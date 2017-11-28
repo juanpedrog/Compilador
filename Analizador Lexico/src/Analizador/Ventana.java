@@ -46,7 +46,7 @@ public class Ventana extends javax.swing.JFrame {
     Gramatica g=new Gramatica();
     ArrayList<String> gramatica=new ArrayList<String>();
     boolean comparacion=false;
-    boolean soloVDD=false,soloVDDComparacion=false,declararFuncion=false;
+    boolean soloVDD=false,soloVDDComparacion=false,declararFuncion=false,insertar_parametros=false;
     String numComparacion=null,varComparacion=null;    
     /**
      * Creates new form Ventana
@@ -102,6 +102,7 @@ public class Ventana extends javax.swing.JFrame {
         btnTabla = new javax.swing.JButton();
         btnRecorrido = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btn_ALexico = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -256,6 +257,17 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton1);
+
+        btn_ALexico.setText("Análisis Léxico");
+        btn_ALexico.setFocusable(false);
+        btn_ALexico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_ALexico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_ALexico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ALexicoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btn_ALexico);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -419,9 +431,11 @@ public class Ventana extends javax.swing.JFrame {
     private void btnLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLexicoActionPerformed
         // TODO add your handling code here:
         Gramatica.camino="";
-        String errorSemantico="";
+        String errorSemantico="",func_llamada="";
         String funcion="";
         banderaErrorLexico = false;
+        insertar_parametros=false;
+        int contar_par=0;
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
         errores=0;
@@ -431,8 +445,6 @@ public class Ventana extends javax.swing.JFrame {
         soloVDDComparacion=false;
         String nombreID="",tipo="";
         String[] auxSimbolo=new String[0];//Guarda los datos que se insertarÃ¡n en la tabla de sÃ­mbolos
-        tabla=new Tabla_Simbolos();
-        tabla.inicializar();
 
         try{
             writer = new PrintWriter(codigo);
@@ -467,7 +479,7 @@ public class Ventana extends javax.swing.JFrame {
                         gramatica.add(token.toString()+"");
                     }
                 }
-                if(declaracion){
+                /*if(declaracion){
                     auxSimbolo[0]=lexer.lexeme;
                     if(!tabla.revisar(token.toString())){
                         //JOptionPane.showMessageDialog(this, "ErrorSemantico "+auxSimbolo[0]);
@@ -484,7 +496,7 @@ public class Ventana extends javax.swing.JFrame {
 
                     declaracion=false;
                     simbolo=false;
-                }
+                }*/
                 switch(token){
                     //Quitar la cosa que lo muestra
                     case CADENA_DESCONOCIDA:                        
@@ -500,31 +512,46 @@ public class Ventana extends javax.swing.JFrame {
                         errores++;
                         break;
                     case IDENTIFICADOR:
-                        if(declararFuncion){
+                        /*if(declararFuncion){
                             auxSimbolo=new String[5];
                             auxSimbolo[0]=lexer.lexeme;
                             auxSimbolo[1]="FUNC";
                             funcion=lexer.lexeme;
                             auxSimbolo[2]=lexer.linea+1+"";
                             tabla.nuevoSimbolo(auxSimbolo);
+                        }*/
+                        if(declararFuncion){
+                            funcion=lexer.lexeme;
                         }
                         if(asignacion){
                             asignacion=false;
-                            if(tabla.sacarFuncion(lexer.lexeme).equals(funcion)){
-                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
-                                    tabla.actualizar(nombreID,lexer.lexeme);
+                            if(tabla.sacarFuncion(lexer.lexeme)!=""){
+                                if(tabla.sacarFuncion(lexer.lexeme).equals(funcion)){
+                                    if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                        tabla.actualizar(nombreID,lexer.lexeme);
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                        errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }else{
                                     //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
                                     errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                                 }
                             }else{
-                                //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
-                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                if(tabla.revisar_parametro(nombreID, funcion)){
+                                    tabla.actualizar_parametro(nombreID,lexer.lexeme);
+                                }else{
+                                    errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la función "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                }
                             }
                         }
-                        if(tabla.revisar(lexer.lexeme)){
-                            if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
-                                soloVDDComparacion=true;
+                        if(!insertar_parametros){
+                            if(tabla.revisar(lexer.lexeme)){
+                                if(tabla.sacarTipo(lexer.lexeme)!=null){
+                                    if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
+                                        soloVDDComparacion=true;
+                                    }
+                                }
                             }
                         }
                         nombreID=lexer.lexeme;
@@ -540,8 +567,20 @@ public class Ventana extends javax.swing.JFrame {
                             }
                         }
                         varComparacion=lexer.lexeme;
+                        if(!insertar_parametros){
+                            func_llamada=lexer.lexeme;
+                        }
+                        if(insertar_parametros && tabla.contarParametros(func_llamada)>0){ 
+                                if(!tabla.sacarTipo(lexer.lexeme).equals(tabla.sacarTipoParametro(func_llamada, contar_par))){
+                                    errorSemantico+="Error semántico: "+lexer.lexeme+" no es del tipo "+tabla.sacarTipoParametro(func_llamada, contar_par)+
+                                            " porque son de tipos incompatibles, linea "+(lexer.linea+1)+"\n";
+                                }
+                            contar_par++;
+                        }
                         break;
                     case PALABRA_RESERVADA:
+                        
+                        
                         if(lexer.lexeme.equals("EFEC")){
                             funcion="EFEC";
                         }
@@ -585,18 +624,30 @@ public class Ventana extends javax.swing.JFrame {
                         break;
                     case NUM_ENTERO:
                         if(asignacion){
-                            if(tipo.equals("ENT")||tipo.equals("FLO")){
-                                asignacion=false;
-                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
-                                    tabla.actualizar(nombreID,lexer.lexeme);
+                            if(tabla.sacarFuncion(lexer.lexeme)!=null){
+                                if(tipo.equals("ENT")||tipo.equals("FLO")){
+                                    asignacion=false;
+
+                                        if(tabla.sacarFuncion(nombreID).equals(funcion)){
+                                            tabla.actualizar(nombreID,lexer.lexeme);
+                                        }else{
+                                            //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                            errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la función "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                        }
                                 }else{
-                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
-                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico");
+                                    errorSemantico+="Error semántico: "+lexer.lexeme+" es un tipo incompatible, linea "+(lexer.linea+1)+"\n";
                                 }
                             }else{
-                                //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico");
-                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" es un tipo incompatible, linea "+(lexer.linea+1)+"\n";
-                            }
+                                    if(!tabla.revisar_parametro(nombreID, funcion)){
+                                        if(tabla.sacarTipoParametro(nombreID, funcion).equals("ENT") || tabla.sacarTipoParametro(nombreID, funcion).equals("FLO")){
+                                            tabla.actualizar_parametro(nombreID,lexer.lexeme);
+                                        }
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    }
+                                }
                         }
                         if(comparacion){
                             if(numComparacion==null){
@@ -604,7 +655,7 @@ public class Ventana extends javax.swing.JFrame {
                                     
                                 }else{
                                     //JOptionPane.showMessageDialog(this, "Error semantico");
-                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
                                 }
                             }
                         }else{
@@ -651,6 +702,17 @@ public class Ventana extends javax.swing.JFrame {
                                 errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede utilizar para comparar valores booleanos, linea "+(lexer.linea+1)+"\n";
                             }
                         }
+                        break;
+                        case SIMBOLO_AGRUPACION:
+                            if(lexer.lexeme.equals("(")){
+                                if(declararFuncion){
+                                    insertar_parametros=true;
+                                }
+                            }
+                            if(lexer.lexeme.equals(")")){
+                                insertar_parametros=false;
+                                contar_par=0;
+                            }
                         break;
                     default:
                         model.addRow(new Object[]{token,lexer.lexeme});
@@ -850,7 +912,7 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Tabla_Simbolos_Grafica tabla_grafica=new Tabla_Simbolos_Grafica();
-            tabla_grafica.generarTabla(tabla.tabla);
+            tabla_grafica.generarTabla(tabla.tabla,tabla.parametros);
             tabla_grafica.setVisible(true);
         }catch(Exception e){
 
@@ -869,6 +931,151 @@ public class Ventana extends javax.swing.JFrame {
         arduino.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         arduino.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_ALexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ALexicoActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        Gramatica.camino="";
+        String errorSemantico="",funcionActual="";
+        String funcion="";
+        banderaErrorLexico = false;
+        insertar_parametros=false;
+        File codigo = new File("Codigo.txt");
+        PrintWriter writer;
+        errores=0;
+        boolean simbolo=false,declaracion=false,asignacion=false;
+        comparacion=false;
+        soloVDD=false;
+        soloVDDComparacion=false;
+        String nombreID="",tipo="";
+        String[] auxSimbolo=new String[0];//Guarda los datos que se insertarÃ¡n en la tabla de sÃ­mbolos
+        tabla=new Tabla_Simbolos();
+        tabla.inicializar();
+
+        try{
+            writer = new PrintWriter(codigo);
+            writer.print(txtAreaCodigo.getText());
+            writer.close();
+        }catch(FileNotFoundException e){
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE,null,e);
+        }
+        try {
+            Reader reader = new BufferedReader(new FileReader("Codigo.txt"));
+            Lexer lexer = new Lexer(reader);
+            String resultado="\n\n";
+            DefaultTableModel model = (DefaultTableModel)tableTS.getModel();
+            while(model.getRowCount()!=0){
+                model.removeRow(0);   
+            }
+            while(true){
+                Token token = lexer.yylex();
+                if(token == null){
+                    tableTS.setModel(model);
+                    
+                    resultado+="     Numero de errores: "+errores;
+
+                    txtAreaSalida.setText(resultado+"\n"+errorSemantico);
+                    return;
+                }else{
+                    if(token.toString().equals("PALABRA_RESERVADA")||token.toString().equals("SIMBOLO_AGRUPACION")||token.toString().equals("SIMBOLO_ASIGNACION")
+                            || token.toString().equals("OP_SINTAXIS")||token.toString().equals("FIN_LINEA")
+                            ||token.toString().equals("OP_RELACIONAL")||token.toString().equals("OP_ARITMETICO")){
+                        gramatica.add(lexer.lexeme+"");
+                    }else{
+                        gramatica.add(token.toString()+"");
+                    }
+                }
+                if(declaracion){
+                    auxSimbolo[0]=lexer.lexeme;
+                    if(!tabla.revisar(token.toString()) || !tabla.revisar_parametro(lexer.lexeme, funcion)){
+                        //JOptionPane.showMessageDialog(this, "ErrorSemantico "+auxSimbolo[0]);
+                        errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" ya se encuentra declarado, linea "+(lexer.linea+1)+"\n";
+                    }else{
+                        if(insertar_parametros){
+                           if(tabla.revisar_parametro(lexer.lexeme, funcion)) {
+                            auxSimbolo[2]=""+(lexer.linea+1);
+                            auxSimbolo[4]=funcion; 
+                            tabla.nuevos_parametros(auxSimbolo);
+                           }else{
+                               errorSemantico+="Error semántico: "+lexer.lexeme+" ya se encuentra declarado en los parametros de la función, linea "+(lexer.linea+1)+"\n";
+                           }
+                        }else{
+                            auxSimbolo[2]=""+(lexer.linea+1);
+                            auxSimbolo[4]=funcion;
+                            if(tabla.nuevoSimbolo(auxSimbolo)){
+                                JOptionPane.showMessageDialog(this, "Exito en tabla de simbolos");
+                            }else{
+                                JOptionPane.showMessageDialog(this, "Error en tabla de simbolos");
+                            }
+                        }
+                    }
+
+                    declaracion=false;
+                    simbolo=false;
+                }
+                switch(token){
+                    //Quitar la cosa que lo muestra
+                    case CADENA_DESCONOCIDA:                        
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        banderaErrorLexico = true;
+                        resultado+="Error lÃ©xico, cadena no valida: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
+                        errores++;
+                        break;
+                    case SIMBOLO_DESCONOCIDO:                        
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        banderaErrorLexico = true;
+                        resultado+="Error lÃ©xico, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
+                        errores++;
+                        break;
+                    case IDENTIFICADOR:
+                        if(declararFuncion){
+                            auxSimbolo=new String[5];
+                            auxSimbolo[0]=lexer.lexeme;
+                            auxSimbolo[1]="FUNC";
+                            funcion=lexer.lexeme;
+                            auxSimbolo[2]=lexer.linea+1+"";
+                            tabla.nuevoSimbolo(auxSimbolo);
+                        }
+                        nombreID=lexer.lexeme;
+                        break;
+                    case PALABRA_RESERVADA:
+                        if(lexer.lexeme.equals("EFEC")){
+                            funcion="EFEC";
+                        }
+                        if(lexer.lexeme.equals("FUNC")){
+                            declararFuncion=true;
+                        }else{
+                            declararFuncion=false;
+                        }
+                        if(lexer.lexeme.equals("ENT") || lexer.lexeme.equals("FLO") || lexer.lexeme.equals("BOO")){
+                            declaracion=true;
+                            auxSimbolo=new String[5];
+                            auxSimbolo[1]=lexer.lexeme;
+                            tipo=lexer.lexeme;
+                        }
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        break;
+                    case SIMBOLO_AGRUPACION:
+                        if(lexer.lexeme.equals("(")){
+                            if(declararFuncion){
+                                insertar_parametros=true;
+                            }
+                        }
+                        if(lexer.lexeme.equals(")")){
+                            insertar_parametros=false;
+                        }
+                        break;
+                    default:
+                        model.addRow(new Object[]{token,lexer.lexeme});
+                        
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_ALexicoActionPerformed
         
     
     public static void mostrar(){
@@ -925,6 +1132,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRecorrido;
     private javax.swing.JButton btnTabla;
+    private javax.swing.JButton btn_ALexico;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

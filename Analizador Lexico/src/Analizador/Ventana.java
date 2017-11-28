@@ -419,6 +419,7 @@ public class Ventana extends javax.swing.JFrame {
     private void btnLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLexicoActionPerformed
         // TODO add your handling code here:
         Gramatica.camino="";
+        String errorSemantico="";
         String funcion="";
         banderaErrorLexico = false;
         File codigo = new File("Codigo.txt");
@@ -429,7 +430,7 @@ public class Ventana extends javax.swing.JFrame {
         soloVDD=false;
         soloVDDComparacion=false;
         String nombreID="",tipo="";
-        String[] auxSimbolo=new String[0];//Guarda los datos que se insertarán en la tabla de símbolos
+        String[] auxSimbolo=new String[0];//Guarda los datos que se insertarÃ¡n en la tabla de sÃ­mbolos
         tabla=new Tabla_Simbolos();
         tabla.inicializar();
 
@@ -455,7 +456,7 @@ public class Ventana extends javax.swing.JFrame {
                     
                     resultado+="     Numero de errores: "+errores;
 
-                    txtAreaSalida.setText(resultado);
+                    txtAreaSalida.setText(resultado+"\n"+errorSemantico);
                     return;
                 }else{
                     if(token.toString().equals("PALABRA_RESERVADA")||token.toString().equals("SIMBOLO_AGRUPACION")||token.toString().equals("SIMBOLO_ASIGNACION")
@@ -469,7 +470,8 @@ public class Ventana extends javax.swing.JFrame {
                 if(declaracion){
                     auxSimbolo[0]=lexer.lexeme;
                     if(!tabla.revisar(token.toString())){
-                        JOptionPane.showMessageDialog(this, "ErrorSemantico "+auxSimbolo[0]);
+                        //JOptionPane.showMessageDialog(this, "ErrorSemantico "+auxSimbolo[0]);
+                        errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" ya se encuentra declarado, linea "+lexer.linea+1+"\n";
                     }else{
                         auxSimbolo[2]=""+(lexer.linea+1);
                         auxSimbolo[4]=funcion;
@@ -488,13 +490,13 @@ public class Ventana extends javax.swing.JFrame {
                     case CADENA_DESCONOCIDA:                        
                         model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
-                        resultado+="ERROR, cadena no valida: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
+                        resultado+="Error léxico, cadena no valida: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
                     case SIMBOLO_DESCONOCIDO:                        
                         model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
-                        resultado+="ERROR, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
+                        resultado+="Error léxico, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
                     case IDENTIFICADOR:
@@ -512,14 +514,18 @@ public class Ventana extends javax.swing.JFrame {
                                 if(tabla.sacarFuncion(nombreID).equals(funcion)){
                                     tabla.actualizar(nombreID,lexer.lexeme);
                                 }else{
-                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                                 }
                             }else{
-                                JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                             }
                         }
-                        if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
-                            soloVDDComparacion=true;
+                        if(tabla.revisar(lexer.lexeme)){
+                            if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
+                                soloVDDComparacion=true;
+                            }
                         }
                         nombreID=lexer.lexeme;
                         if(comparacion){
@@ -527,7 +533,9 @@ public class Ventana extends javax.swing.JFrame {
                             tipo1=tabla.sacarTipo(varComparacion);
                             tipo2=tabla.sacarTipo(lexer.lexeme);
                             if(!tipo1.equals(tipo2)){
-                                JOptionPane.showMessageDialog(this, "Error semántico");
+                                //JOptionPane.showMessageDialog(this, "Error semÃ¡ntico");
+                                errorSemantico+="Error semÃ¡ntico: "+varComparacion+" no se puede comparar con "+lexer.lexeme+
+                                        " porque son de tipos incompatibles, linea "+(lexer.linea+1)+"\n";
                                 comparacion=false;
                             }
                         }
@@ -551,13 +559,15 @@ public class Ventana extends javax.swing.JFrame {
                         if(lexer.lexeme.equals("VDD")||lexer.lexeme.equals("FLS")){
                             if(asignacion){
                                 if(!soloVDD){
-                                    JOptionPane.showMessageDialog(this, "Error semántico");
+                                    //JOptionPane.showMessageDialog(this, "Error semÃ¡ntico");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" es un tipo incompatible, linea "+(lexer.linea+1)+"\n";
                                 }else{
                                     asignacion=false;
                                     if(tabla.sacarFuncion(nombreID).equals(funcion)){
                                         tabla.actualizar(nombreID,lexer.lexeme);
                                     }else{
-                                        JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                        //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                        errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                                     }
                                 }
                             }
@@ -580,10 +590,12 @@ public class Ventana extends javax.swing.JFrame {
                                 if(tabla.sacarFuncion(nombreID).equals(funcion)){
                                     tabla.actualizar(nombreID,lexer.lexeme);
                                 }else{
-                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                                 }
                             }else{
-                                JOptionPane.showMessageDialog(this,"Error semántico");
+                                //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico");
+                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" es un tipo incompatible, linea "+(lexer.linea+1)+"\n";
                             }
                         }
                         if(comparacion){
@@ -591,7 +603,8 @@ public class Ventana extends javax.swing.JFrame {
                                 if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
                                     
                                 }else{
-                                    JOptionPane.showMessageDialog(this, "Error semantico");
+                                    //JOptionPane.showMessageDialog(this, "Error semantico");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
                                 }
                             }
                         }else{
@@ -607,10 +620,12 @@ public class Ventana extends javax.swing.JFrame {
                                 if(tabla.sacarFuncion(nombreID).equals(funcion)){
                                     tabla.actualizar(nombreID,lexer.lexeme);
                                 }else{
-                                    JOptionPane.showMessageDialog(this,"Error semántico, la variable no pertenece a la función");
+                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
                                 }
                             }else{
-                                JOptionPane.showMessageDialog(this,"Error semántico");
+                                //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico");
+                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" es un tipo incompatible, linea "+(lexer.linea+1)+"\n";
                             }
                         }
                         if(comparacion){
@@ -618,7 +633,8 @@ public class Ventana extends javax.swing.JFrame {
                                 if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
                                     
                                 }else{
-                                    JOptionPane.showMessageDialog(this, "Error semantico");
+                                    //JOptionPane.showMessageDialog(this, "Error semantico");
+                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son tipos incompatibles, linea "+(lexer.linea+1)+"\n";
                                 }
                             }
                         }else{
@@ -631,7 +647,8 @@ public class Ventana extends javax.swing.JFrame {
                         comparacion=true;
                         if(soloVDDComparacion){
                             if(!lexer.lexeme.equals("==")){
-                                JOptionPane.showMessageDialog(this, "Error semantico");
+                                //JOptionPane.showMessageDialog(this, "Error semantico");
+                                errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede utilizar para comparar valores booleanos, linea "+(lexer.linea+1)+"\n";
                             }
                         }
                         break;

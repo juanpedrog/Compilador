@@ -10,9 +10,9 @@ import javax.swing.JEditorPane;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
 import javax.swing.text.EditorKit;
-import jsyntaxpane.syntaxkits.CSyntaxKit;
-import jsyntaxpane.syntaxkits.CppSyntaxKit;
-import jsyntaxpane.syntaxkits.JavaSyntaxKit;
+//import jsyntaxpane.syntaxkits.CSyntaxKit;
+//import jsyntaxpane.syntaxkits.CppSyntaxKit;
+//import jsyntaxpane.syntaxkits.JavaSyntaxKit;
 //import jsyntaxpane.syntaxkits.CppSyntaxKit;
 
 
@@ -31,7 +31,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
         codigo = "FUNC EFEC : ENT x=1| ; \n FUNC pegar() : ENT z=2| ;";
         
-        jEditorPane1.setEditorKit(new CSyntaxKit());
+//        jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
         codigo = codigo.replaceAll("\\s", " ");
         codigo = codigo.replaceAll(Pattern.quote("("), " ( ");

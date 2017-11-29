@@ -30,3 +30,5 @@ FUNC sembrar(ENT distancia,ENT zurcos):
 	sembrar(aux,zurcoaux)|
 ;
 
+
+

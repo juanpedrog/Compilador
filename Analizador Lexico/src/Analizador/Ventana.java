@@ -435,6 +435,7 @@ public class Ventana extends javax.swing.JFrame {
         String funcion="";
         banderaErrorLexico = false;
         insertar_parametros=false;
+        boolean esFuncion=false,funcionParametros=false;
         int contar_par=0;
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
@@ -523,6 +524,11 @@ public class Ventana extends javax.swing.JFrame {
                         if(declararFuncion){
                             funcion=lexer.lexeme;
                         }
+                        if(tabla.sacarTipo(lexer.lexeme).equals("FUNC")){
+                            esFuncion=true;
+                        }else{
+                            esFuncion=false;
+                        }
                         if(asignacion){
                             asignacion=false;
                             if(tabla.sacarFuncion(lexer.lexeme)!=""){
@@ -563,14 +569,14 @@ public class Ventana extends javax.swing.JFrame {
                                 //JOptionPane.showMessageDialog(this, "Error semÃ¡ntico");
                                 errorSemantico+="Error semÃ¡ntico: "+varComparacion+" no se puede comparar con "+lexer.lexeme+
                                         " porque son de tipos incompatibles, linea "+(lexer.linea+1)+"\n";
-                                comparacion=false;
                             }
+                            comparacion=false;
                         }
                         varComparacion=lexer.lexeme;
                         if(!insertar_parametros){
                             func_llamada=lexer.lexeme;
                         }
-                        if(insertar_parametros && tabla.contarParametros(func_llamada)>0){ 
+                        if(insertar_parametros && tabla.contarParametros(func_llamada)>0 && !funcionParametros){ 
                                 if(!tabla.sacarTipo(lexer.lexeme).equals(tabla.sacarTipoParametro(func_llamada, contar_par))){
                                     errorSemantico+="Error semántico: "+lexer.lexeme+" no es del tipo "+tabla.sacarTipoParametro(func_llamada, contar_par)+
                                             " porque son de tipos incompatibles, linea "+(lexer.linea+1)+"\n";
@@ -657,7 +663,9 @@ public class Ventana extends javax.swing.JFrame {
                                     //JOptionPane.showMessageDialog(this, "Error semantico");
                                     errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
                                 }
+                                comparacion=false;
                             }
+                            
                         }else{
                             numComparacion=null;
                         }
@@ -687,7 +695,9 @@ public class Ventana extends javax.swing.JFrame {
                                     //JOptionPane.showMessageDialog(this, "Error semantico");
                                     errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son tipos incompatibles, linea "+(lexer.linea+1)+"\n";
                                 }
+                                comparacion=false;
                             }
+                            
                         }else{
                             numComparacion=null;
                         }
@@ -705,12 +715,16 @@ public class Ventana extends javax.swing.JFrame {
                         break;
                         case SIMBOLO_AGRUPACION:
                             if(lexer.lexeme.equals("(")){
-                                if(declararFuncion){
+                                if(declararFuncion || esFuncion){
                                     insertar_parametros=true;
+                                    if(declararFuncion){
+                                        funcionParametros=true;
+                                    }
                                 }
                             }
                             if(lexer.lexeme.equals(")")){
                                 insertar_parametros=false;
+                                funcionParametros=false;
                                 contar_par=0;
                             }
                         break;

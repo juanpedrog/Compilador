@@ -28,24 +28,31 @@ public class Codigo_Arduino extends javax.swing.JFrame {
      */
     public Codigo_Arduino() {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
-        codigo = "FUNC EFEC : ENT x=1| ; \n FUNC pegar() : ENT z=2| ;";
+        codigo = "FUNC EFEC : GIRAD()| GIRAI()| MOVAD()| MOVAT()| ; \n FUNC pegar(): ENT z=2| ;";
         
 //        jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
         codigo = codigo.replaceAll("\\s", " ");
         codigo = codigo.replaceAll(Pattern.quote("("), " ( ");
         codigo = codigo.replaceAll(Pattern.quote(")"), " ) ");
-        codigo = codigo.replaceAll(Pattern.quote("|")," ");
-        codigo = codigo.replaceAll("'+'", " + ");
+        codigo = codigo.replaceAll(Pattern.quote("|")," | ");
+        codigo = codigo.replaceAll(Pattern.quote(";")," ; ");
+        codigo = codigo.replaceAll("\\+", " + ");
         codigo = codigo.replaceAll("'-'", " - ");
-        codigo = codigo.replaceAll("'*'", " * ");
+        codigo = codigo.replaceAll("\\*'", " * ");
         codigo = codigo.replaceAll("'/'", " / ");
+        codigo = codigo.replaceAll("<", " < ");
+        codigo = codigo.replaceAll(">", " > ");
         codigo = codigo.replaceAll(Pattern.quote("="), " = ");
         String resultado = generarCodigo(codigo);
-        jEditorPane1.setText(generarCodigo(codigo));
-        jEditorPane1.getText().replaceAll(Pattern.quote("|"),";");
-            
+        resultado = resultado.replaceAll(Pattern.quote("|"),";");
+        resultado = resultado.replaceAll(Pattern.quote(";;"),"||");
+        resultado = resultado.replaceAll(Pattern.quote("VDD"),"true");
+        resultado = resultado.replaceAll(Pattern.quote("FLS"),"false");
+        jEditorPane1.setText(resultado);
+        
     }
 
     /**
@@ -100,8 +107,30 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                         "  pinMode(out4,OUTPUT);\n" +
                         "  Serial.begin(9600); \n" +
                         "}";
+        String funciones_predeterminadas = "void movd(){\n" +
+                        "    digitalWrite(out,HIGH);\n" +
+                        "    delay(180);\n" +
+                        "    digitalWrite(out,LOW);\n" +
+                        "}\n" +
+                        "\n" +
+                        "void movi(){\n" +
+                        "    digitalWrite(out2,HIGH);\n" +
+                        "    delay(180);\n" +
+                        "    digitalWrite(out2,LOW);\n" +
+                        "}\n" +
+                        "\n" +
+                        "void movad(){\n" +
+                        "    digitalWrite(out3,HIGH);\n" +
+                        "    delay(130);\n" +
+                        "    digitalWrite(out3,LOW);\n" +
+                        "}\n" +
+                        "void movat(){\n" +
+                        "    digitalWrite(out3,HIGH);\n" +
+                        "    delay(130);\n" +
+                        "    digitalWrite(out3,LOW);\n" +
+                        "}";
         declaracion(aux);
-        return setup+"\n"+globales+"\n"+declaracion;             
+        return setup+"\n"+globales+"\n"+declaracion+funciones_predeterminadas;
 
     }
     
@@ -119,6 +148,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                             i++;
                             break;
                         }
+                        //Parametros
                         default:{
                             declaracion+=aux[i]+"(";
                             i++;
@@ -151,56 +181,230 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                         }
                     }
                     while(!aux[i].equals(";")){
-                        switch(aux[i]){
-                            case "ENT":{
-                                declaracion+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            case "FLO":{
-                                declaracion+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            case "BOO":{
-                                declaracion+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            
-                            //Aqui va el despuche de las demas palabras reservadas
-
-                        }
-                        i++;
-                        
+                        //Aqui va lo de edntro de la funcion
+                        i= dentro_funcion(i, aux);                        
                     }
-                    declaracion+="}\n";
+                    declaracion+="\n}\n";
                     i++;
                     break; 
                 }
                 case "ENT":{
-                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "FLO":{
-                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "BOO":{
-                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
-                
-                
-                
-                
             }   
         }
     }
     
+    private int dentro_funcion(int i, String aux[]){
+        switch(aux[i]){
+            case "MOVAD":{
+                declaracion+="movad()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "MOVAT":{
+                declaracion+="movat()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "GIRAI":{
+                declaracion+="movi()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "GIRAD":{
+                declaracion+="movd()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "COM":{
+                declaracion+="if"+aux[++i];
+                i++;
+                while(!aux[i].equals(")")){
+                    if(aux[i].equals("Y")){
+                        declaracion+=" && ";
+                        i++;
+                    }
+                    if(aux[i].equals("O")){
+                        declaracion+=" || ";
+                        i++;
+                    }
+                    declaracion+=aux[i++];
+                    switch(aux[i]){
+                        case "=":{
+                            declaracion+=aux[i++]+aux[++i]+aux[++i]+" ";
+                            break;
+                        }
+                        case "<":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+="=";
+                                i++;
+
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        case ">":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+=aux[i++];
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        default:break;
+                    }
+                    i++;
+                }
+                declaracion+="){\n";
+                i++;
+                i++;
+                //Parte del si
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i = dentro_funcion(i, aux);
+                }
+                declaracion+="} else{\n     ";
+                i++;
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i = dentro_funcion(i, aux);
+                }
+                declaracion+="\n}\n";
+                i++;
+                break;
+            }
+            case "ACTM":{
+                declaracion+="while"+aux[++i];
+                i++;
+                while(!aux[i].equals(")")){
+
+                    if(aux[i].equals("Y")){
+                        declaracion+=" && ";
+                        i++;
+                    }
+                    if(aux[i].equals("O")){
+                        declaracion+=" || ";
+                        i++;
+                    }
+                    declaracion+=aux[i++];
+                    switch(aux[i]){
+                        case "=":{
+                            declaracion+=aux[i++]+aux[++i]+aux[++i]+" ";
+                            break;
+                        }
+                        case "<":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+="=";
+                                i++;
+
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        case ">":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+=aux[i++];
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        default:break;
+                    }
+                    i++;
+                }
+                declaracion+="){\n";
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i= dentro_funcion(i, aux);
+                }
+                declaracion+="\n}\n";
+                i++;
+                break;
+            }
+            case "ENT":{
+                declaracion+="  ";
+                declaracion+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+            case "FLO":{
+                declaracion+="  ";
+                declaracion+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+            case "BOO":{
+                declaracion+="  ";
+                declaracion+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+
+            //Aqui va el despuche de las demas palabras reservadas
+            case "DET":{
+                declaracion+="  ";
+                declaracion+="wait"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
+                declaracion+="\n";
+                declaracion+="  ";
+                break;
+            }
+            case "APG":{
+                declaracion+="LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF)"+aux[++i];
+                break;
+            }
+            case "|":{
+                declaracion+=aux[i]+"\n";
+                declaracion+="  ";
+                break;
+            }
+            default:{
+                declaracion+=aux[i];
+                break;
+            }
+
+        }
+        i++;
+        return i;
+    }
     
     
     /**

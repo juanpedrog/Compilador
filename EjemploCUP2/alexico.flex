@@ -142,125 +142,197 @@ public int linea;
     return new Symbol(sym.FIN_LINEA);
     }
 
-("ACTM") {
+("ENC") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_ACTM);
+    return new Symbol(sym.PALABRA_RESERVADA_ENC);
     }
 ("APG") {
     lexeme = yytext();
     linea = yyline;
     return new Symbol(sym.PALABRA_RESERVADA_APG);
     }
-("BOO") {
+("MTM") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_BOO);
+    return new Symbol(sym.PALABRA_RESERVADA_MTM);
     }
-("CJT") {
+("ENCC") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_CJT);
+    return new Symbol(sym.PALABRA_RESERVADA_ENCC);
     }
-("CLX") {
+("APGC") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_CLX);
+    return new Symbol(sym.PALABRA_RESERVADA_APGC);
     }
-("COM") {
+("GDC") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_COM);
+    return new Symbol(sym.PALABRA_RESERVADA_GDC);
     }
-("DET") {
+("GIC") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_DET);
+    return new Symbol(sym.PALABRA_RESERVADA_GIC);
     }
-("DETENTE") {
+("CRT") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_DETENTE);
+    return new Symbol(sym.PALABRA_RESERVADA_CRT);
     }
-("ECD") {
+("CPI") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_ECD);
+    return new Symbol(sym.PALABRA_RESERVADA_CPI);
     }
-("EFEC") {
+("CPV") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_EFEC);
+    return new Symbol(sym.PALABRA_RESERVADA_CPV);
     }
-("ENT") {
+("INT") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_ENT);
+    return new Symbol(sym.PALABRA_RESERVADA_INT);
     }
-("EXC") {
+("MOVA") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_ENT);
-    }
-("FLO") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_FLO);
-    }
-("FLS") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_FLS);
-    }
-("FUNC") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_FUNC);
-    }
-("GIRAI") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_GIRAI);
-    }
-("GIRAD") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_GIRAD);
-    }
-("LUZ") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_LUZ);
-    }
-("MOVAD") {
-    lexeme = yytext();
-    linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_MOVAD);
+    return new Symbol(sym.PALABRA_RESERVADA_MOVA);
     }
 ("MOVAT") {
     lexeme = yytext();
     linea = yyline;
     return new Symbol(sym.PALABRA_RESERVADA_MOVAT);
     }
-("S") {
+("MOVI") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_S);
+    return new Symbol(sym.PALABRA_RESERVADA_MOVI);
     }
-("SN") {
+("MOVD") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_SN);
+    return new Symbol(sym.PALABRA_RESERVADA_MOVD);
     }
-("SPD") {
+("ENCR") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_SPD);
+    return new Symbol(sym.PALABRA_RESERVADA_ENCR);
     }
-("VDD") {
+("APGR") {
     lexeme = yytext();
     linea = yyline;
-    return new Symbol(sym.PALABRA_RESERVADA_VDD);
+    return new Symbol(sym.PALABRA_RESERVADA_APGR);
+    }
+("RTM") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_RTM);
+    }
+("TMP") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_TMP);
+    }
+("HMD") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_HMD);
+    }
+("LMN") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_LMN);
+    }
+("ENT") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_ENT);
+    }
+("DEC") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_DEC);
+    }
+("BUCLE") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_BUCLE);
+    }
+
+("CIERTO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_CIERTO);
+    }
+("FALSO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_FALSO);
+    }
+("NUEVO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_NUEVO);
+    }
+("SI") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_SI);
+    }
+("CAR") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_CAR);
+    }
+("CORT") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_CORT);
+    }
+("PUBLICO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_PUBLICO);
+    }
+("PRIVADO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_PRIVADO);
+    }
+("PROTEGIDO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_PROTEGIDO);
+    }
+("ESTATICO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_ESTATICO);
+    }
+("MIENTRAS") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_MIENTRAS);
+    }
+("HACER") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_HACER);
+    }
+("ABSTRACTO") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_ABSTRACTO);
+    }
+
+("EJECUTAR") {
+    lexeme = yytext();
+    linea = yyline;
+    return new Symbol(sym.PALABRA_RESERVADA_EJECUTAR);
     }
 
 {IDENTIFICADOR} {

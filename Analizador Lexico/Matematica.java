@@ -1,0 +1,1 @@
+public class Matematica{public double resultado=1+1;}

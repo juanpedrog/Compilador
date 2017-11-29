@@ -593,23 +593,25 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         if(asignacion){
                             asignacion=false;
-                            if(tabla.sacarFuncion(lexer.lexeme)!=""){
+                                if(tabla.sacarFuncion(nombreID).equals(funcion)){
                                 if(tabla.sacarFuncion(lexer.lexeme).equals(funcion)){
-                                    if(tabla.sacarFuncion(nombreID).equals(funcion)){
-                                        tabla.actualizar(nombreID,lexer.lexeme);
-                                    }else{
-                                        //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
-                                        errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
-                                    }
+                                    tabla.actualizar(nombreID, tabla.sacarValorParametro(lexer.lexeme,funcion));
                                 }else{
-                                    //JOptionPane.showMessageDialog(this,"Error semÃ¡ntico, la variable no pertenece a la funciÃ³n");
-                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" la variable no pertenece a la funciÃ³n "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    if(tabla.sacarFuncionParametro(lexer.lexeme, funcion)){
+                                        tabla.actualizar(nombreID, tabla.sacarValorParametro(lexer.lexeme,funcion));
+                                    }else{
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la función "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }
                             }else{
-                                if(tabla.revisar_parametro(nombreID, funcion)){
-                                    tabla.actualizar_parametro(nombreID,lexer.lexeme);
+                                if(tabla.sacarFuncion(lexer.lexeme).equals(funcion)){
+                                    tabla.actualizar_parametro(nombreID, tabla.sacarValorParametro(lexer.lexeme,funcion));
                                 }else{
-                                    errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la función "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    if(tabla.sacarFuncionParametro(lexer.lexeme, funcion)){
+                                        tabla.actualizar_parametro(nombreID, tabla.sacarValorParametro(lexer.lexeme,funcion));
+                                    }else{
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" la variable no pertenece a la función "+funcion+", linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }
                             }
                         }
@@ -629,7 +631,7 @@ public class Ventana extends javax.swing.JFrame {
                             tipo2=tabla.sacarTipo(lexer.lexeme);
                             if(!tipo1.equals(tipo2)){
                                 //JOptionPane.showMessageDialog(this, "Error semÃ¡ntico");
-                                errorSemantico+="Error semÃ¡ntico: "+varComparacion+" no se puede comparar con "+lexer.lexeme+
+                                errorSemantico+="Error semántico: "+varComparacion+" no se puede comparar con "+lexer.lexeme+
                                         " porque son de tipos incompatibles, linea "+(lexer.linea+1)+"\n";
                             }
                             comparacion=false;
@@ -734,11 +736,20 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         if(comparacion){
                             if(numComparacion==null){
-                                if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
+                                if(!tabla.revisar(varComparacion)){
+                                    if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
                                     
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this, "Error semantico");
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }else{
-                                    //JOptionPane.showMessageDialog(this, "Error semantico");
-                                    errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    if(tabla.sacarTipoParametro(varComparacion,funcion).equals("ENT")||tabla.sacarTipoParametro(varComparacion,funcion).equals("FLO")){
+                                    
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this, "Error semantico");
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }
                                 comparacion=false;
                             }
@@ -771,13 +782,24 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         if(comparacion){
                             if(numComparacion==null){
-                                if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
+                                if(!tabla.revisar(varComparacion)){
+                                    if(tabla.sacarTipo(varComparacion).equals("ENT")||tabla.sacarTipo(varComparacion).equals("FLO")){
                                     
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this, "Error semantico");
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }else{
-                                    //JOptionPane.showMessageDialog(this, "Error semantico");
-                                    errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son tipos incompatibles, linea "+(lexer.linea+1)+"\n";
+                                    if(tabla.sacarTipoParametro(varComparacion,funcion).equals("ENT")||tabla.sacarTipoParametro(varComparacion,funcion).equals("FLO")){
+                                    
+                                    }else{
+                                        //JOptionPane.showMessageDialog(this, "Error semantico");
+                                        errorSemantico+="Error semántico: "+lexer.lexeme+" no se puede comparar con "+varComparacion+" porque son de diferente tipo, linea "+(lexer.linea+1)+"\n";
+                                    }
                                 }
                                 comparacion=false;
+                            }else{
+                                
                             }
                             
                         }else{
@@ -824,6 +846,7 @@ public class Ventana extends javax.swing.JFrame {
                             }
                         break;
                         case FIN_LINEA:
+                            numComparacion=null;
                             bandComparacion=false;
                         bandFuncion=false;
                         if(bandVariable2){

@@ -29,6 +29,3 @@ FUNC sembrar(ENT distancia,ENT zurcos):
 	zurcoaux=zurcos++1|
 	sembrar(aux,zurcoaux)|
 ;
-
-
-

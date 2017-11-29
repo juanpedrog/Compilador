@@ -101,6 +101,16 @@ public class Tabla_Simbolos {
         }
         return null;
     }
+    String sacarValorParametro(String nombre,String funcion){
+        String[] aux;
+        for(int i=0;i<parametros.size();i++){
+            aux=parametros.get(i);
+            if(aux[0].equals(nombre) && aux[4].equals(funcion)){
+                return aux[3];
+            }
+        }
+        return null;
+    }
     String sacarFuncion(String nombre){
         String[] aux;
         for(int i=0;i<tabla.size();i++){
@@ -110,6 +120,16 @@ public class Tabla_Simbolos {
             }
         }
         return "";
+    }
+    boolean sacarFuncionParametro(String nombre,String funcion){
+        String[] aux;
+        for(int i=0;i<parametros.size();i++){
+            aux=parametros.get(i);
+            if(aux[0].equals(nombre) && aux[4].equals(funcion)){
+                return true;
+            }
+        }
+        return false;
     }
     String sacarTipo(String nombre){
         String[] aux;

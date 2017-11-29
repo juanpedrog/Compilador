@@ -28,8 +28,9 @@ public class Codigo_Arduino extends javax.swing.JFrame {
      */
     public Codigo_Arduino() {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
-        codigo = "FUNC EFEC : ENT x=1| DETENTE(100)|  x= x+2| \n ACTM(1>=1 O 1<=2):\n x=x+1|\n;; \n FUNC pegar(): ENT z=2| ;";
+        codigo = "FUNC EFEC : COM(x==1):\nS:\n x=1| c=1| \n;\nSN:\n x = 1|  \n;\n;; \n FUNC pegar(): ENT z=2| ;";
         
 //        jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
@@ -46,8 +47,10 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         codigo = codigo.replaceAll(">", " > ");
         codigo = codigo.replaceAll(Pattern.quote("="), " = ");
         String resultado = generarCodigo(codigo);
-        jEditorPane1.setText(generarCodigo(codigo));
-        //jEditorPane1.getText().replaceAll(Pattern.quote("|"),";");
+        resultado = resultado.replaceAll(Pattern.quote("|"),";");
+        resultado = resultado.replaceAll(Pattern.quote(";;"),"||");
+        jEditorPane1.setText(resultado);
+        
             
     }
 
@@ -163,17 +166,17 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                     break; 
                 }
                 case "ENT":{
-                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "FLO":{
-                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "BOO":{
-                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+" "+aux[++i];
                     globales+="\n";
                     break;
                 }
@@ -183,6 +186,73 @@ public class Codigo_Arduino extends javax.swing.JFrame {
     
     private int dentro_funcion(int i, String aux[]){
         switch(aux[i]){
+            case "COM":{
+                declaracion+="if"+aux[++i];
+                i++;
+                while(!aux[i].equals(")")){
+
+                    if(aux[i].equals("Y")){
+                        declaracion+=" && ";
+                        i++;
+                    }
+                    if(aux[i].equals("O")){
+                        declaracion+=" || ";
+                        i++;
+                    }
+                    declaracion+=aux[i++];
+                    switch(aux[i]){
+                        case "=":{
+                            declaracion+=aux[i++]+aux[++i]+aux[++i]+" ";
+                            break;
+                        }
+                        case "<":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+="=";
+                                i++;
+
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        case ">":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+=aux[i++];
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        default:break;
+                    }
+                    i++;
+                }
+                declaracion+="){\n";
+                i++;
+                i++;
+                //Parte del si
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i = dentro_funcion(i, aux);
+                }
+                declaracion+="} else{\n     ";
+                i++;
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i = dentro_funcion(i, aux);
+                }
+                declaracion+="\n}\n";
+                i++;
+                break;
+            }
             case "ACTM":{
                 declaracion+="while"+aux[++i];
                 i++;
@@ -265,6 +335,10 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                 declaracion+="wait"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
                 declaracion+="\n";
                 declaracion+="  ";
+                break;
+            }
+            case "APG":{
+                declaracion+="LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF)"+aux[++i];
                 break;
             }
             case "|":{

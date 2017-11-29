@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.List;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,7 +41,8 @@ import javax.swing.table.TableModel;
 public class Ventana extends javax.swing.JFrame {
 
     
-    
+    List<List> lista;
+    List<List> listaFuncion;
     ArrayList<String[]> tablaSimbolos;
     boolean banderaErrorLexico;
     int errores;
@@ -48,6 +51,10 @@ public class Ventana extends javax.swing.JFrame {
     boolean comparacion=false;
     boolean soloVDD=false,soloVDDComparacion=false,declararFuncion=false,insertar_parametros=false;
     String numComparacion=null,varComparacion=null;    
+    boolean bandVariable,bandVariable2;
+    boolean bandFuncion;
+    boolean bandComparacion;
+    String comparando1,comparando2,salidaComparacion;
     /**
      * Creates new form Ventana
      */
@@ -62,12 +69,27 @@ public class Ventana extends javax.swing.JFrame {
        
         //El path debe ser el de donde tienes la carpeta
         this.setResizable(false);
-        
+        bandComparacion=false;
+        bandFuncion=false;
+        bandVariable=false;
+        bandVariable2=false;
         tablaSimbolos = new ArrayList();
         txtAreaCodigo.requestFocus();
         txtAreaNum.setCaretPosition(0);
         txtAreaCodigo.setTabSize(2);
         errores=0;
+         comparando1="";
+         comparando2="";
+         salidaComparacion="";
+         lista=new ArrayList<List>();
+         listaFuncion=new ArrayList<List>();
+         lista.add(new ArrayList<String>());
+         lista.add(new ArrayList<Integer>());
+         lista.add(new ArrayList<Integer>());
+         lista.add(new ArrayList<Integer>());
+         listaFuncion.add(new ArrayList<String>());
+         listaFuncion.add(new ArrayList<Integer>());
+         listaFuncion.add(new ArrayList<Integer>());
         //txtAreaSalida.setFont(txtAreaSalida.getFont().deriveFont(16f));
         //txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f));
         
@@ -103,6 +125,7 @@ public class Ventana extends javax.swing.JFrame {
         btnRecorrido = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btn_ALexico = new javax.swing.JButton();
+        btnOptimizacion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -185,7 +208,7 @@ public class Ventana extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
+        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Lexico.png"))); // NOI18N
         btnLexico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLexicoActionPerformed(evt);
@@ -193,7 +216,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLexico);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Sintactico.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -201,7 +224,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
 
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Limpiar.png"))); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Limpiar.png"))); // NOI18N
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -209,7 +232,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLimpiar);
 
-        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Abrir.png"))); // NOI18N
+        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Abrir.png"))); // NOI18N
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -217,7 +240,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnAbrir);
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Guardar.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Guardar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -247,7 +270,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRecorrido);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/arduino.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -268,6 +291,17 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btn_ALexico);
+
+        btnOptimizacion.setText("Optimización");
+        btnOptimizacion.setFocusable(false);
+        btnOptimizacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOptimizacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOptimizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOptimizacionActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnOptimizacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -319,7 +353,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Hojita.png"))); // NOI18N
 
         jMenu1.setText("Archivo");
 
@@ -500,19 +534,47 @@ public class Ventana extends javax.swing.JFrame {
                 }*/
                 switch(token){
                     //Quitar la cosa que lo muestra
-                    case CADENA_DESCONOCIDA:                        
+                    case CADENA_DESCONOCIDA:     
+                        bandFuncion=false;
+                        bandComparacion=false;
+                        bandVariable=false;
                         model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
                         resultado+="Error léxico, cadena no valida: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
-                    case SIMBOLO_DESCONOCIDO:                        
+                    case SIMBOLO_DESCONOCIDO: 
+                        bandFuncion=false;
+                        bandComparacion=false;
+                        bandVariable=false;
                         model.addRow(new Object[]{token,lexer.lexeme});
                         banderaErrorLexico = true;
                         resultado+="Error léxico, simbolo desconocido: "+lexer.lexeme +",Linea: "+(lexer.linea+1)+"\n";
                         errores++;
                         break;
                     case IDENTIFICADOR:
+                        salidaComparacion="";
+                        if(bandComparacion){
+                             comparando2=lexer.lexeme;
+                             if(comparando1.equals(comparando2)){
+                                 salidaComparacion= "ComparaciÃ³n entre el mismo operando, en la linea: "+(lexer.linea+1)+"\n";
+                             }
+                        }
+                        else{comparando1=lexer.lexeme;}
+                        bandComparacion=false;
+                        buscarVariable(lexer.lexeme);
+                        buscarFuncion(lexer.lexeme);
+                        if(bandVariable){
+                             lista.get(0).add(nombreID);
+                             lista.get(1).add(1);
+                             lista.get(2).add(lexer.linea+1);
+                              bandVariable2=true;
+                        }
+                        if(bandFuncion){
+                             listaFuncion.get(0).add(nombreID);
+                             listaFuncion.get(1).add(1);
+                             listaFuncion.get(2).add(lexer.linea+1);
+                         }bandFuncion=false;
                         /*if(declararFuncion){
                             auxSimbolo=new String[5];
                             auxSimbolo[0]=lexer.lexeme;
@@ -551,7 +613,7 @@ public class Ventana extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        if(!insertar_parametros){
+                        /*if(!insertar_parametros){
                             if(tabla.revisar(lexer.lexeme)){
                                 if(tabla.sacarTipo(lexer.lexeme)!=null){
                                     if(tabla.sacarTipo(lexer.lexeme).equals("BOO")){
@@ -559,7 +621,7 @@ public class Ventana extends javax.swing.JFrame {
                                     }
                                 }
                             }
-                        }
+                        }*/
                         nombreID=lexer.lexeme;
                         if(comparacion){
                             String tipo1,tipo2;
@@ -585,6 +647,11 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         break;
                     case PALABRA_RESERVADA:
+                        bandFuncion=false;
+                        bandVariable=false;
+                        bandComparacion=false;
+                        //comparando1="";
+                        comparando2="";
                         
                         
                         if(lexer.lexeme.equals("EFEC")){
@@ -592,6 +659,7 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         if(lexer.lexeme.equals("FUNC")){
                             declararFuncion=true;
+                            bandFuncion=true;
                         }else{
                             declararFuncion=false;
                         }
@@ -600,6 +668,7 @@ public class Ventana extends javax.swing.JFrame {
                             auxSimbolo=new String[5];
                             auxSimbolo[1]=lexer.lexeme;
                             tipo=lexer.lexeme;
+                            bandVariable=true;
                         }
                         if(lexer.lexeme.equals("VDD")||lexer.lexeme.equals("FLS")){
                             if(asignacion){
@@ -627,6 +696,14 @@ public class Ventana extends javax.swing.JFrame {
                     case SIMBOLO_ASIGNACION:
                         asignacion=true;
                         model.addRow(new Object[]{token,lexer.lexeme});
+                        bandComparacion=false;
+                        bandFuncion=false;
+                        // comparando1="";
+                        if(bandVariable2){
+                            lista.get(3).add(1);
+                            bandVariable=false;
+                        }
+                        bandVariable2=false;
                         break;
                     case NUM_ENTERO:
                         if(asignacion){
@@ -671,6 +748,11 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         numComparacion=lexer.lexeme;
                         model.addRow(new Object[]{token,lexer.lexeme});
+                        bandComparacion=false;
+                        bandFuncion=false;
+                        bandVariable=false;
+                         //comparando1="";
+                        comparando2="";
                         break;
                     case NUM_FLOTANTE:
                         if(asignacion){
@@ -703,6 +785,11 @@ public class Ventana extends javax.swing.JFrame {
                         }
                         numComparacion=lexer.lexeme;
                         model.addRow(new Object[]{token,lexer.lexeme});
+                        bandComparacion=false;
+                        bandFuncion=false;
+                        bandVariable=false;
+                         //comparando1="";
+                        comparando2="";
                         break;
                     case OP_RELACIONAL:
                         comparacion=true;
@@ -711,6 +798,14 @@ public class Ventana extends javax.swing.JFrame {
                                 //JOptionPane.showMessageDialog(this, "Error semantico");
                                 errorSemantico+="Error semÃ¡ntico: "+lexer.lexeme+" no se puede utilizar para comparar valores booleanos, linea "+(lexer.linea+1)+"\n";
                             }
+                        }
+                        bandFuncion=false;
+                        bandVariable=false;
+                        bandComparacion=false;
+                        javax.swing.JOptionPane.showMessageDialog(this, "Op Relacional="+lexer.lexeme);  
+                        if(lexer.lexeme.equals(">")||lexer.lexeme.equals("<")||lexer.lexeme.equals(">=")||lexer.lexeme.equals("<=")
+                                ||lexer.lexeme.equals("==")||lexer.lexeme.equals("!=")){
+                            bandComparacion=true;
                         }
                         break;
                         case SIMBOLO_AGRUPACION:
@@ -728,6 +823,24 @@ public class Ventana extends javax.swing.JFrame {
                                 contar_par=0;
                             }
                         break;
+                        case FIN_LINEA:
+                            bandComparacion=false;
+                        bandFuncion=false;
+                        if(bandVariable2){
+                            lista.get(3).add(2);
+                            bandVariable=false;
+                        }
+                        bandVariable2=false;
+                         //comparando1="";
+                        comparando2="";
+                            break;
+                        case OP_SINTAXIS:
+                            bandComparacion=false;
+                        bandFuncion=false;
+                        bandVariable=false;
+                        //comparando1="";
+                        comparando2="";
+                            break;
                     default:
                         model.addRow(new Object[]{token,lexer.lexeme});
                         
@@ -1078,6 +1191,18 @@ public class Ventana extends javax.swing.JFrame {
                         if(lexer.lexeme.equals(")")){
                             insertar_parametros=false;
                         }
+                        bandComparacion=false;
+                        bandFuncion=false;
+                        bandVariable=false;
+                         //comparando1="";
+                        comparando2="";
+                        break;
+                    case OP_ARITMETICO:
+                        bandComparacion=false;
+                        bandFuncion=false;
+                        bandVariable=false;
+                         //comparando1="";
+                        comparando2="";
                         break;
                     default:
                         model.addRow(new Object[]{token,lexer.lexeme});
@@ -1090,6 +1215,34 @@ public class Ventana extends javax.swing.JFrame {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_ALexicoActionPerformed
+
+    private void btnOptimizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptimizacionActionPerformed
+        // TODO add your handling code here:
+        String salida="";
+        for(int i=0;i<lista.get(1).size();i++){
+             if(Integer.parseInt(lista.get(1).get(i)+"")==1){
+                 salida+="Variable: "+lista.get(0).get(i)+" jamás usada en la linea: "+lista.get(2).get(i)+"\n";
+             }
+        
+            if(lista.get(1).get(i).equals(2)){
+                    if(lista.get(3).get(i).equals(2)){
+                         salida+="Variable: "+lista.get(0).get(i)+" jamás usada en la linea: "+lista.get(2).get(i)+"\n";
+                    }
+            }
+        }
+        for(int i=0;i<listaFuncion.get(1).size();i++){
+          if(listaFuncion.get(1).get(i).equals(1)){
+               salida+="Funcion: "+listaFuncion.get(0).get(i)+" jamás usada en la linea: "+listaFuncion.get(2).get(i)+"\n";
+           }
+         }txtAreaSalida.setText(salida+salidaComparacion);
+            salidaComparacion="";
+         lista.get(0).clear();
+         lista.get(1).clear();
+         lista.get(2).clear();
+         listaFuncion.get(0).clear();
+         listaFuncion.get(1).clear();
+         listaFuncion.get(2).clear();
+    }//GEN-LAST:event_btnOptimizacionActionPerformed
         
     
     public static void mostrar(){
@@ -1100,6 +1253,24 @@ public class Ventana extends javax.swing.JFrame {
         }
         txtAreaSalida.setText(txtAreaSalida.getText()+"\n"+AnalizadorSintactico.cadStatic);
     }
+     public boolean buscarFuncion(String nomFuncion){
+         for(int i=0;i<listaFuncion.get(0).size();i++){               
+            if(nomFuncion.equals(listaFuncion.get(0).get(i))){
+                Integer newValor=Integer.parseInt(listaFuncion.get(1).get(i)+"")+1;
+                listaFuncion.get(1).set(i, newValor);
+                return true;      
+             }
+        }return false;
+     }
+     public boolean buscarVariable(String variable){
+         for(int i=0;i<lista.get(0).size();i++){
+            if(lista.get(0).get(i).equals(variable)){
+               Integer newValor=Integer.parseInt(lista.get(1).get(i)+"")+1;
+                lista.get(1).set(i, newValor);
+                return true;
+            }      
+         }return false;
+     }
     /**
      * @param args the command line arguments
      */
@@ -1144,6 +1315,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLexico;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnOptimizacion;
     private javax.swing.JButton btnRecorrido;
     private javax.swing.JButton btnTabla;
     private javax.swing.JButton btn_ALexico;

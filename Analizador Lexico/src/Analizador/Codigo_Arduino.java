@@ -29,22 +29,25 @@ public class Codigo_Arduino extends javax.swing.JFrame {
     public Codigo_Arduino() {
         initComponents();
         //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
-        codigo = "FUNC EFEC : ENT x=1| ; \n FUNC pegar() : ENT z=2| ;";
+        codigo = "FUNC EFEC : ENT x=1| DETENTE(100)|  x= x+2| \n ACTM(1>=1 O 1<=2):\n x=x+1|\n;; \n FUNC pegar(): ENT z=2| ;";
         
 //        jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
         codigo = codigo.replaceAll("\\s", " ");
         codigo = codigo.replaceAll(Pattern.quote("("), " ( ");
         codigo = codigo.replaceAll(Pattern.quote(")"), " ) ");
-        codigo = codigo.replaceAll(Pattern.quote("|")," ");
-        codigo = codigo.replaceAll("'+'", " + ");
+        codigo = codigo.replaceAll(Pattern.quote("|")," | ");
+        codigo = codigo.replaceAll(Pattern.quote(";")," ; ");
+        codigo = codigo.replaceAll("\\+", " + ");
         codigo = codigo.replaceAll("'-'", " - ");
-        codigo = codigo.replaceAll("'*'", " * ");
+        codigo = codigo.replaceAll("\\*'", " * ");
         codigo = codigo.replaceAll("'/'", " / ");
+        codigo = codigo.replaceAll("<", " < ");
+        codigo = codigo.replaceAll(">", " > ");
         codigo = codigo.replaceAll(Pattern.quote("="), " = ");
         String resultado = generarCodigo(codigo);
         jEditorPane1.setText(generarCodigo(codigo));
-        jEditorPane1.getText().replaceAll(Pattern.quote("|"),";");
+        //jEditorPane1.getText().replaceAll(Pattern.quote("|"),";");
             
     }
 
@@ -119,6 +122,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                             i++;
                             break;
                         }
+                        //Parametros
                         default:{
                             declaracion+=aux[i]+"(";
                             i++;
@@ -151,56 +155,132 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                         }
                     }
                     while(!aux[i].equals(";")){
-                        switch(aux[i]){
-                            case "ENT":{
-                                declaracion+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            case "FLO":{
-                                declaracion+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            case "BOO":{
-                                declaracion+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
-                                declaracion+="\n";
-                                break;
-                            }
-                            
-                            //Aqui va el despuche de las demas palabras reservadas
-
-                        }
-                        i++;
-                        
+                        //Aqui va lo de edntro de la funcion
+                        i= dentro_funcion(i, aux);                        
                     }
-                    declaracion+="}\n";
+                    declaracion+="\n}\n";
                     i++;
                     break; 
                 }
                 case "ENT":{
-                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "FLO":{
-                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
                     globales+="\n";
                     break;
                 }
                 case "BOO":{
-                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+";";
+                    globales+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
                     globales+="\n";
                     break;
                 }
-                
-                
-                
-                
             }   
         }
     }
     
+    private int dentro_funcion(int i, String aux[]){
+        switch(aux[i]){
+            case "ACTM":{
+                declaracion+="while"+aux[++i];
+                i++;
+                while(!aux[i].equals(")")){
+
+                    if(aux[i].equals("Y")){
+                        declaracion+=" && ";
+                        i++;
+                    }
+                    if(aux[i].equals("O")){
+                        declaracion+=" || ";
+                        i++;
+                    }
+                    declaracion+=aux[i++];
+                    switch(aux[i]){
+                        case "=":{
+                            declaracion+=aux[i++]+aux[++i]+aux[++i]+" ";
+                            break;
+                        }
+                        case "<":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+="=";
+                                i++;
+
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        case ">":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+=aux[i++];
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
+                        default:break;
+                    }
+                    i++;
+                }
+                declaracion+="){\n";
+                i++;
+                i++;
+                while(!aux[i].equals(";")){
+                    i= dentro_funcion(i, aux);
+                }
+                declaracion+="\n}\n";
+                i++;
+                break;
+            }
+            case "ENT":{
+                declaracion+="  ";
+                declaracion+="int "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+            case "FLO":{
+                declaracion+="  ";
+                declaracion+="float "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+            case "BOO":{
+                declaracion+="  ";
+                declaracion+="boolean "+aux[++i]+" "+aux[++i]+" "+aux[++i]+aux[++i];
+                declaracion+="\n";
+                break;
+            }
+
+            //Aqui va el despuche de las demas palabras reservadas
+            case "DETENTE":{
+                declaracion+="  ";
+                declaracion+="wait"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
+                declaracion+="\n";
+                declaracion+="  ";
+                break;
+            }
+            case "|":{
+                declaracion+=aux[i]+"\n";
+                declaracion+="  ";
+                break;
+            }
+            default:{
+                declaracion+=aux[i];
+                break;
+            }
+
+        }
+        i++;
+        return i;
+    }
     
     
     /**

@@ -30,7 +30,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
-        codigo = "FUNC EFEC : COM(x==1):\nS:\n x=1| c=1| \n;\nSN:\n x = 1|  \n;\n;; \n FUNC pegar(): ENT z=2| ;";
+        codigo = "FUNC EFEC : GIRAD()| GIRAI()| MOVAD()| MOVAT()| ; \n FUNC pegar(): ENT z=2| ;";
         
 //        jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
@@ -49,9 +49,10 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         String resultado = generarCodigo(codigo);
         resultado = resultado.replaceAll(Pattern.quote("|"),";");
         resultado = resultado.replaceAll(Pattern.quote(";;"),"||");
+        resultado = resultado.replaceAll(Pattern.quote("VDD"),"true");
+        resultado = resultado.replaceAll(Pattern.quote("FLS"),"false");
         jEditorPane1.setText(resultado);
         
-            
     }
 
     /**
@@ -106,8 +107,30 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                         "  pinMode(out4,OUTPUT);\n" +
                         "  Serial.begin(9600); \n" +
                         "}";
+        String funciones_predeterminadas = "void movd(){\n" +
+                        "    digitalWrite(out,HIGH);\n" +
+                        "    delay(180);\n" +
+                        "    digitalWrite(out,LOW);\n" +
+                        "}\n" +
+                        "\n" +
+                        "void movi(){\n" +
+                        "    digitalWrite(out2,HIGH);\n" +
+                        "    delay(180);\n" +
+                        "    digitalWrite(out2,LOW);\n" +
+                        "}\n" +
+                        "\n" +
+                        "void movad(){\n" +
+                        "    digitalWrite(out3,HIGH);\n" +
+                        "    delay(130);\n" +
+                        "    digitalWrite(out3,LOW);\n" +
+                        "}\n" +
+                        "void movat(){\n" +
+                        "    digitalWrite(out3,HIGH);\n" +
+                        "    delay(130);\n" +
+                        "    digitalWrite(out3,LOW);\n" +
+                        "}";
         declaracion(aux);
-        return setup+"\n"+globales+"\n"+declaracion;             
+        return setup+"\n"+globales+"\n"+declaracion+funciones_predeterminadas;
 
     }
     
@@ -186,11 +209,38 @@ public class Codigo_Arduino extends javax.swing.JFrame {
     
     private int dentro_funcion(int i, String aux[]){
         switch(aux[i]){
+            case "MOVAD":{
+                declaracion+="movad()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "MOVAT":{
+                declaracion+="movat()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "GIRAI":{
+                declaracion+="movi()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
+            case "GIRAD":{
+                declaracion+="movd()";
+                i++;
+                i++;
+                i++;
+                break;
+            }
             case "COM":{
                 declaracion+="if"+aux[++i];
                 i++;
                 while(!aux[i].equals(")")){
-
                     if(aux[i].equals("Y")){
                         declaracion+=" && ";
                         i++;
@@ -330,7 +380,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
             }
 
             //Aqui va el despuche de las demas palabras reservadas
-            case "DETENTE":{
+            case "DET":{
                 declaracion+="  ";
                 declaracion+="wait"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
                 declaracion+="\n";

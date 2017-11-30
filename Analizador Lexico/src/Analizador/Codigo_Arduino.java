@@ -120,8 +120,6 @@ public class Codigo_Arduino extends javax.swing.JFrame {
 
         String aux[] = codido.split(" ");
         String setup = "//Declaracion\n"+
-                        "Servo ser1;\n" +
-                        "Servo ser2;\n" +
                         "char rxChar;\n" +
                         "int out=11;\n" +
                         "int out2=12;\n" +

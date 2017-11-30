@@ -34,6 +34,7 @@ public class Ayuda extends javax.swing.JFrame {
             linea=leer.readLine();
         }
         }catch (FileNotFoundException ex) {
+            
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);

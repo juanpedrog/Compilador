@@ -5,8 +5,14 @@
  */
 package Analizador;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.FileStore;
 import java.util.regex.Pattern;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
 import javax.swing.text.EditorKit;
@@ -20,24 +26,25 @@ import javax.swing.text.EditorKit;
  *
  * @author Cherne
  */
+
 public class Codigo_Arduino extends javax.swing.JFrame {
-    public String codigo,declaracion,globales;
+    public String declaracion,globales;
 
     /**
      * Creates new form Codigo_Arduino
      */
-    public Codigo_Arduino() {
+    public Codigo_Arduino(String codigo) {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        //codigo = "FUNC EFEC : ENT y = 1| ; FUNC pegar: ENT z = 2| ;";
-        codigo = "FUNC EFEC : GIRAD()| GIRAI()| MOVAD()| MOVAT()| ; \n FUNC pegar(): ENT z=2| ;";
+        this.setTitle("Codigo Arduino");
         
-//        jEditorPane1.setEditorKit(new CSyntaxKit());
+//      jEditorPane1.setEditorKit(new CSyntaxKit());
         jEditorPane1.setFont(new java.awt.Font("Arial", 0, 24));
         codigo = codigo.replaceAll("\\s", " ");
         codigo = codigo.replaceAll(Pattern.quote("("), " ( ");
         codigo = codigo.replaceAll(Pattern.quote(")"), " ) ");
         codigo = codigo.replaceAll(Pattern.quote("|")," | ");
+        codigo = codigo.replaceAll(Pattern.quote(":")," : ");
         codigo = codigo.replaceAll(Pattern.quote(";")," ; ");
         codigo = codigo.replaceAll("\\+", " + ");
         codigo = codigo.replaceAll("'-'", " - ");
@@ -45,6 +52,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         codigo = codigo.replaceAll("'/'", " / ");
         codigo = codigo.replaceAll("<", " < ");
         codigo = codigo.replaceAll(">", " > ");
+        codigo = codigo.replaceAll("!", " ! ");
         codigo = codigo.replaceAll(Pattern.quote("="), " = ");
         String resultado = generarCodigo(codigo);
         resultado = resultado.replaceAll(Pattern.quote("|"),";");
@@ -52,6 +60,11 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         resultado = resultado.replaceAll(Pattern.quote("VDD"),"true");
         resultado = resultado.replaceAll(Pattern.quote("FLS"),"false");
         jEditorPane1.setText(resultado);
+        
+        
+        exportar();
+        
+        
         
     }
 
@@ -86,6 +99,21 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exportar() {
+        try {
+            JFileChooser archivo = new JFileChooser(System.getProperty("*.ino"));
+            archivo.showSaveDialog(this);
+            if (archivo.getSelectedFile() != null) {
+                try (FileWriter guardado = new FileWriter(archivo.getSelectedFile())) {
+                    guardado.write(jEditorPane1.getText());
+                    JOptionPane.showMessageDialog(rootPane, "Se guardo el archivo de arduino");
+                }
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+    
     public String generarCodigo(String codido){
         String [] codigo_generado = new String[3];
         declaracion=globales="";
@@ -279,6 +307,17 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                             declaracion+=aux[i]+" ";
                             break;
                         }
+                        case "!":{
+                            declaracion+=aux[i++];
+                            if(aux[i].equals("")){
+                                i++;
+                            }
+                            if(aux[i].equals("=")){
+                                declaracion+=aux[i++];
+                            }
+                            declaracion+=aux[i]+" ";
+                            break;
+                        }
                         default:break;
                     }
                     i++;
@@ -437,7 +476,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Codigo_Arduino().setVisible(true);
+                //new Codigo_Arduino().setVisible(true);
             }
         });
     }

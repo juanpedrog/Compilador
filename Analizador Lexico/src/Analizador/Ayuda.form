@@ -54,7 +54,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="446" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="428" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCerrar" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -66,7 +66,7 @@
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icons/Hojita.png"/>
+          <Image iconType="3" name="/Icons/logo.png"/>
         </Property>
       </Properties>
     </Component>
@@ -75,7 +75,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="AutoSiembra"/>
+        <Property name="text" type="java.lang.String" value="MCTRL Compilador"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

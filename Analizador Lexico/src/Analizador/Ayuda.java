@@ -25,7 +25,7 @@ public class Ayuda extends javax.swing.JFrame {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(255,204,0));
        // String ruta="C:\\Compilador\\Compilador\\Analizador Lexico\\src\\Icons\\ayuda.docx";
-        File doc=new File("C:\\Compilador\\Compilador\\Analizador Lexico\\ayuda.txt");
+        File doc=new File("C:\\Users\\Juan Pedro Gil\\Documents\\GitHub\\Compilador\\Analizador Lexico\\ayuda.txt");
         try{
         BufferedReader leer=new BufferedReader(new FileReader(doc));
         String linea=leer.readLine();
@@ -60,10 +60,10 @@ public class Ayuda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("AutoSiembra");
+        jLabel1.setText("MCTRL Compilador");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel2.setText("Ayuda");
@@ -109,7 +109,7 @@ public class Ayuda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

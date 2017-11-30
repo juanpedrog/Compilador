@@ -32,6 +32,8 @@ public class Recorrido extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtARecorrido = new javax.swing.JTextArea();
         btnOk = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -50,6 +52,12 @@ public class Recorrido extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("start with programa;\n\nprograma ::= PALABRA_RESERVADA_NUEVO principal funciones | PALABRA_RESERVADA_NUEVO principal ;\n\nprincipal ::=  PALABRA_RESERVADA_EJECUTAR  SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA | lineascodigo ;\n\n\nlineascodigo ::= lineacodigo | ; \n\nlineacodigo ::= lineacodigo linea | linea ;\n\nlinea ::= invocarmetodo FIN_LINEA | crearvariable FIN_LINEA | cambiarvalor FIN_LINEA | buclecondicion ; \t\n\ninvocarmetodo ::= IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosenvio SIMBOLO_AGRUPACION_PACIERRA;\n\nparametrosenvio ::= parenvio | ;\n\nparenvio ::= parenvio COMA penvio | penvio;\n\npenvio ::= IDENTIFICADOR | valor ; \n\nvalor ::= NUM_FLOTANTE | NUM_ENTERO;\n\ncrearvariable ::= tipodato IDENTIFICADOR | tipodato IDENTIFICADOR SIMBOLO_ASIGNACION asignvalor;\n\ntipodato ::= PALABRA_RESERVADA_ENT | PALABRA_RESERVADA_DEC ;\n\nasignvalor ::= operasignacion ;\n\noperasignacion ::= expresion |invocarmetodo ; \n\nexpresion ::= valor x | h;\nx::= valor x | j ;\nj ::= valor | t;\nh::= t epri;\nepri ::= OP_ARITMETICO_ADD t epri| OP_ARITMETICO_SUB t epri |  ; \n\nt ::= f tpri;\ntpri ::= OP_ARITMETICO_MUL f tpri| OP_ARITMETICO_DIV f tpri |  ;\n\nf ::= valor | IDENTIFICADOR | SIMBOLO_AGRUPACION_PABRE expresion SIMBOLO_AGRUPACION_PACIERRA; \n\ncambiarvalor ::= IDENTIFICADOR SIMBOLO_ASIGNACION cambvalor;\n\ncambvalor ::= expresion ; \n\nbuclecondicion ::= condicionif | buclewhile ; \n\ncondicionif ::= condicionsi;\n\ncondicionsi ::= PALABRA_RESERVADA_SI SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP PALABRA_RESERVADA_CIERTO SIMBOLO_AGRUPACION_DOSP lineascodigo  SIMBOLO_AGRUPACION_PCOMA PALABRA_RESERVADA_FALSO SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA SIMBOLO_AGRUPACION_PCOMA;\n\ncondicion ::= valor condicional valor | valor condicional IDENTIFICADOR | IDENTIFICADOR condicional valor | IDENTIFICADOR condicional IDENTIFICADOR;\n\ncondicional ::= OP_RELACIONAL_IIGUAL | OP_RELACIONAL_MAIGUAL | OP_RELACIONAL_MEIGUAL | OP_RELACIONAL_DIFERENTE | OP_RELACIONAL_MAQUE | OP_RELACIONAL_MEQUE ;\n\nbuclewhile ::= PALABRA_RESERVADA_BUCLE SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA ;\n\nfunciones  ::= funciones funcion | funcion;\n\nfuncion ::= PALABRA_RESERVADA_NUEVO IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosin SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA;\n\nparametrosin ::= parametros | ; \n\nparametros ::= parametros COMA parametro | parametro;\n\nparametro ::= tipodato IDENTIFICADOR;");
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,12 +68,15 @@ public class Recorrido extends javax.swing.JFrame {
                         .addGap(132, 132, 132)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
                         .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,9 +84,14 @@ public class Recorrido extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(btnOk))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOk))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -125,6 +141,8 @@ public class Recorrido extends javax.swing.JFrame {
     private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea txtARecorrido;
     // End of variables declaration//GEN-END:variables
 }

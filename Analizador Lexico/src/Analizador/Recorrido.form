@@ -31,15 +31,18 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="324" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
                       <Component id="btnOk" min="-2" pref="83" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="324" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="448" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,9 +52,17 @@
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="222" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
-              <Component id="btnOk" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="222" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnOk" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPane2" min="-2" pref="321" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,5 +94,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOkActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Monospaced" size="24" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="start with programa;&#xa;&#xa;programa ::= PALABRA_RESERVADA_NUEVO principal funciones | PALABRA_RESERVADA_NUEVO principal ;&#xa;&#xa;principal ::=  PALABRA_RESERVADA_EJECUTAR  SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA | lineascodigo ;&#xa;&#xa;&#xa;lineascodigo ::= lineacodigo | ; &#xa;&#xa;lineacodigo ::= lineacodigo linea | linea ;&#xa;&#xa;linea ::= invocarmetodo FIN_LINEA | crearvariable FIN_LINEA | cambiarvalor FIN_LINEA | buclecondicion ; &#x9;&#xa;&#xa;invocarmetodo ::= IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosenvio SIMBOLO_AGRUPACION_PACIERRA;&#xa;&#xa;parametrosenvio ::= parenvio | ;&#xa;&#xa;parenvio ::= parenvio COMA penvio | penvio;&#xa;&#xa;penvio ::= IDENTIFICADOR | valor ; &#xa;&#xa;valor ::= NUM_FLOTANTE | NUM_ENTERO;&#xa;&#xa;crearvariable ::= tipodato IDENTIFICADOR | tipodato IDENTIFICADOR SIMBOLO_ASIGNACION asignvalor;&#xa;&#xa;tipodato ::= PALABRA_RESERVADA_ENT | PALABRA_RESERVADA_DEC ;&#xa;&#xa;asignvalor ::= operasignacion ;&#xa;&#xa;operasignacion ::= expresion |invocarmetodo ; &#xa;&#xa;expresion ::= valor x | h;&#xa;x::= valor x | j ;&#xa;j ::= valor | t;&#xa;h::= t epri;&#xa;epri ::= OP_ARITMETICO_ADD t epri| OP_ARITMETICO_SUB t epri |  ; &#xa;&#xa;t ::= f tpri;&#xa;tpri ::= OP_ARITMETICO_MUL f tpri| OP_ARITMETICO_DIV f tpri |  ;&#xa;&#xa;f ::= valor | IDENTIFICADOR | SIMBOLO_AGRUPACION_PABRE expresion SIMBOLO_AGRUPACION_PACIERRA; &#xa;&#xa;cambiarvalor ::= IDENTIFICADOR SIMBOLO_ASIGNACION cambvalor;&#xa;&#xa;cambvalor ::= expresion ; &#xa;&#xa;buclecondicion ::= condicionif | buclewhile ; &#xa;&#xa;condicionif ::= condicionsi;&#xa;&#xa;condicionsi ::= PALABRA_RESERVADA_SI SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP PALABRA_RESERVADA_CIERTO SIMBOLO_AGRUPACION_DOSP lineascodigo  SIMBOLO_AGRUPACION_PCOMA PALABRA_RESERVADA_FALSO SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA SIMBOLO_AGRUPACION_PCOMA;&#xa;&#xa;condicion ::= valor condicional valor | valor condicional IDENTIFICADOR | IDENTIFICADOR condicional valor | IDENTIFICADOR condicional IDENTIFICADOR;&#xa;&#xa;condicional ::= OP_RELACIONAL_IIGUAL | OP_RELACIONAL_MAIGUAL | OP_RELACIONAL_MEIGUAL | OP_RELACIONAL_DIFERENTE | OP_RELACIONAL_MAQUE | OP_RELACIONAL_MEQUE ;&#xa;&#xa;buclewhile ::= PALABRA_RESERVADA_BUCLE SIMBOLO_AGRUPACION_PABRE condicion SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA ;&#xa;&#xa;funciones  ::= funciones funcion | funcion;&#xa;&#xa;funcion ::= PALABRA_RESERVADA_NUEVO IDENTIFICADOR SIMBOLO_AGRUPACION_PABRE parametrosin SIMBOLO_AGRUPACION_PACIERRA SIMBOLO_AGRUPACION_DOSP lineascodigo SIMBOLO_AGRUPACION_PCOMA;&#xa;&#xa;parametrosin ::= parametros | ; &#xa;&#xa;parametros ::= parametros COMA parametro | parametro;&#xa;&#xa;parametro ::= tipodato IDENTIFICADOR;"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

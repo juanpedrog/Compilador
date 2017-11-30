@@ -126,6 +126,7 @@ public class Ventana extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btn_ALexico = new javax.swing.JButton();
         btnOptimizacion = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -208,7 +209,7 @@ public class Ventana extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Lexico.png"))); // NOI18N
+        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
         btnLexico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLexicoActionPerformed(evt);
@@ -216,7 +217,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLexico);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Sintactico.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -224,7 +225,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
 
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Limpiar.png"))); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Limpiar.png"))); // NOI18N
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -232,7 +233,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLimpiar);
 
-        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Abrir.png"))); // NOI18N
+        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Abrir.png"))); // NOI18N
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -240,7 +241,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnAbrir);
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Guardar.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Guardar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -270,7 +271,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRecorrido);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/arduino.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -302,6 +303,17 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnOptimizacion);
+
+        jButton3.setText("Automata");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -353,7 +365,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Icons/Hojita.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
 
         jMenu1.setText("Archivo");
 
@@ -1266,8 +1278,63 @@ public class Ventana extends javax.swing.JFrame {
          listaFuncion.get(1).clear();
          listaFuncion.get(2).clear();
     }//GEN-LAST:event_btnOptimizacionActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:\
+        ArrayList<String> a = lexemas(); 
+        Automata at = new Automata();
+        String string =at.iniciar(a);
+        if(Automata.bandera && Automata.errores){
+            if(a.get(a.size()-1).equals(";")){
+                JOptionPane.showMessageDialog(this,"Recorrido de automata correcto");txtAreaSalida.setText(string);
+            }
+            else JOptionPane.showMessageDialog(this,"Programa no termina con ;");txtAreaSalida.setText(string);
+        }
+        else {JOptionPane.showMessageDialog(this,"Error en automata");txtAreaSalida.setText(string);}
+    }//GEN-LAST:event_jButton3ActionPerformed
         
-    
+    private ArrayList<String> lexemas (){
+        File codigo = new File("Codigo.txt");
+        PrintWriter writer;
+        ArrayList<String> array = new ArrayList<>();
+        try{
+            writer = new PrintWriter(codigo);
+            writer.print(txtAreaCodigo.getText());
+            writer.close();
+        }catch(FileNotFoundException e){
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE,null,e);
+        }
+        try {
+            Reader reader = new BufferedReader(new FileReader("Codigo.txt"));
+            Lexer lexer = new Lexer(reader);
+            while(true){
+                Token token = lexer.yylex();
+                if(token == null){
+                    return array;
+                }
+                switch(token){
+                    case IDENTIFICADOR:
+                        array.add("IDENTIFICADOR");
+                        break;
+                    case NUM_FLOTANTE:
+                        array.add("NUM_FLO");
+                        break;
+                    case NUM_ENTERO:
+                        array.add("NUM_ENT");
+                        break;
+                    default:
+                        array.add(lexer.lexeme);
+                        break;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return array;
+    }
+	
     public static void mostrar(){
         if(AnalizadorSintactico.cadStatic.equals("Sin errores sintácticos")){
             txtAreaSalida.setForeground(Color.blue);
@@ -1344,6 +1411,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btn_ALexico;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

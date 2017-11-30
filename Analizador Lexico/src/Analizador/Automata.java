@@ -247,10 +247,10 @@ public class Automata {
         switch(l.get(contadorarr)){
             case "=":
                 if(banderaux1){
-                    camino+="En q4 hacia q7 con = \n";
+                    camino+="En q4 hacia q22 con = \n";
                     contadorarr++;
                     banderaux1=false;
-                    q7(l);
+                    q22(l);
                 }
                 else {
                     camino +="Error en q4 ";

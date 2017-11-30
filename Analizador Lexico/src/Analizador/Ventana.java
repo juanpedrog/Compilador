@@ -63,7 +63,9 @@ public class Ventana extends javax.swing.JFrame {
     /**
      * Creates new form Ventana
      */
+    DefaultStyledDocument doc;
     public Ventana() {
+        
         final StyleContext cont = StyleContext.getDefaultStyleContext();
         final AttributeSet attrGray = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.gray);
         final AttributeSet attrGreen = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.GREEN);
@@ -71,7 +73,7 @@ public class Ventana extends javax.swing.JFrame {
         final AttributeSet attrRed = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
         final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
         
-        DefaultStyledDocument doc = new DefaultStyledDocument() {
+        doc = new DefaultStyledDocument() {
             @Override
             public void insertString (int offset, String str, AttributeSet a) throws BadLocationException {
                 super.insertString(offset, str, a);
@@ -145,7 +147,7 @@ public class Ventana extends javax.swing.JFrame {
             }
         };
         
-        initComponents(doc);
+        initComponents();
         getContentPane().setBackground(new java.awt.Color(255,204,0));
         Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) d.getWidth() , (int) d.getHeight()-50);
@@ -174,9 +176,7 @@ public class Ventana extends javax.swing.JFrame {
          listaFuncion.add(new ArrayList<Integer>());
          listaFuncion.add(new ArrayList<Integer>());
         //txtAreaSalida.setFont(txtAreaSalida.getFont().deriveFont(16f));
-        //txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f));
-        
-                        
+        //txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f));                        
     }
 
     /**
@@ -186,7 +186,7 @@ public class Ventana extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(DefaultStyledDocument doc) {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jSplitPane1 = new javax.swing.JSplitPane();

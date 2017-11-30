@@ -29,6 +29,7 @@ import javax.swing.text.EditorKit;
 
 public class Codigo_Arduino extends javax.swing.JFrame {
     public String declaracion,globales;
+    boolean loop;
 
     /**
      * Creates new form Codigo_Arduino
@@ -170,6 +171,8 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                     switch(aux[i]){
                         case "EFEC":{
                             declaracion+="loop(){\n";
+                            declaracion+="if(Serial.available()){\n";
+                            loop=true;
                             i++;
                             i++;
                             break;
@@ -210,6 +213,8 @@ public class Codigo_Arduino extends javax.swing.JFrame {
                         //Aqui va lo de edntro de la funcion
                         i= dentro_funcion(i, aux);                        
                     }
+                    if(loop){declaracion+="}";}
+                    loop=false;
                     declaracion+="\n}\n";
                     i++;
                     break; 

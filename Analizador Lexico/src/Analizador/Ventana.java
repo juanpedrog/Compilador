@@ -227,7 +227,7 @@ public class Ventana extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -507,8 +507,18 @@ public class Ventana extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Ayuda");
-        jMenuBar1.add(jMenu3);
+        menuAyuda.setText("Ayuda");
+        menuAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAyudaMouseClicked(evt);
+            }
+        });
+        menuAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAyudaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuAyuda);
 
         setJMenuBar(jMenuBar1);
 
@@ -1394,6 +1404,19 @@ public class Ventana extends javax.swing.JFrame {
         }
         else {JOptionPane.showMessageDialog(this,"Error en automata");txtAreaSalida.setText(string);}
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void menuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAyudaActionPerformed
+        // TODO add your handling code here:
+        /*Ayuda a= new Ayuda();
+        a.setVisible(true);*/
+    }//GEN-LAST:event_menuAyudaActionPerformed
+
+    private void menuAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAyudaMouseClicked
+        // TODO add your handling code here:
+        Ayuda a= new Ayuda();
+        a.setVisible(true);
+        a.setLocationRelativeTo(null);
+    }//GEN-LAST:event_menuAyudaMouseClicked
         
     private ArrayList<String> lexemas (){
         File codigo = new File("Codigo.txt");
@@ -1522,7 +1545,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -1539,6 +1561,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu menuAyuda;
     private javax.swing.JTable tableTS;
     private javax.swing.JTextPane txtAreaCodigo;
     private javax.swing.JTextPane txtAreaNum;

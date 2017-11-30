@@ -148,7 +148,9 @@ public class Ventana extends javax.swing.JFrame {
         };
         
         initComponents();
-        getContentPane().setBackground(new java.awt.Color(255,204,0));
+        getContentPane().setBackground(new java.awt.Color(255,201,14));
+        jPanel1.setBackground(new java.awt.Color(255,201,14));
+        jPanel2.setBackground(new java.awt.Color(255,201,14));
         Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) d.getWidth() , (int) d.getHeight()-50);
        
@@ -176,7 +178,7 @@ public class Ventana extends javax.swing.JFrame {
          listaFuncion.add(new ArrayList<Integer>());
          listaFuncion.add(new ArrayList<Integer>());
         //txtAreaSalida.setFont(txtAreaSalida.getFont().deriveFont(16f));
-        //txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f));                        
+        //txtAreaCodigo.setFont(txtAreaCodigo.getFont().deriveFont(16f)); 
     }
 
     /**
@@ -250,7 +252,7 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jSplitPane1);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("AutoSiembra");
+        jLabel1.setText("MCTRL Compilador");
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Salida"));
 
@@ -260,7 +262,7 @@ public class Ventana extends javax.swing.JFrame {
         txtAreaSalida.setBorder(null);
         jScrollPane2.setViewportView(txtAreaSalida);
 
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("COMPONENTES LEXICOS"));
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "COMPONENTES LEXICOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jScrollPane3.setFocusTraversalPolicyProvider(true);
         jScrollPane3.setFocusable(false);
 
@@ -290,9 +292,11 @@ public class Ventana extends javax.swing.JFrame {
         }
 
         jToolBar1.setFloatable(false);
+        jToolBar1.setForeground(java.awt.Color.orange);
         jToolBar1.setRollover(true);
+        jToolBar1.setBorderPainted(false);
 
-        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
+        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconocorrer.png"))); // NOI18N
         btnLexico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLexicoActionPerformed(evt);
@@ -300,7 +304,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLexico);
 
-		jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconosin.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -308,7 +312,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
 
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Limpiar.png"))); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconolimpiar.png"))); // NOI18N
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -316,7 +320,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLimpiar);
 
-		btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Abrir.png"))); // NOI18N
+        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconoabrir.png"))); // NOI18N
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -324,7 +328,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnAbrir);
 
-		btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Guardar.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconoguardar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -332,9 +336,11 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnGuardar);
 
-        btnTabla.setText("Tabla de simbolos");
+        btnTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconotabla.png"))); // NOI18N
+        btnTabla.setAlignmentX(0.5F);
         btnTabla.setFocusable(false);
         btnTabla.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTabla.setPreferredSize(new java.awt.Dimension(81, 51));
         btnTabla.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,7 +349,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnTabla);
 
-        btnRecorrido.setText("Recorrido");
+        btnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconorecorrido.png"))); // NOI18N
         btnRecorrido.setFocusable(false);
         btnRecorrido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRecorrido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -354,7 +360,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRecorrido);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconoarduino.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -365,7 +371,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton1);
 
-        btn_ALexico.setText("Análisis Léxico");
+        btn_ALexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconolex.png"))); // NOI18N
         btn_ALexico.setFocusable(false);
         btn_ALexico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_ALexico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -376,7 +382,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btn_ALexico);
 
-        btnOptimizacion.setText("Optimización");
+        btnOptimizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconooptimizacion.png"))); // NOI18N
         btnOptimizacion.setFocusable(false);
         btnOptimizacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOptimizacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -387,7 +393,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnOptimizacion);
 
-        jButton3.setText("Automata");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconoautomata.png"))); // NOI18N
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -411,14 +417,18 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Integrantes del Equipo"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Integrantes del Equipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("14400941       Gil Llanos Juan Pedro");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("14400944       González Arellano Ernesto");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("14400968       Monroy Salcedo Jose de Jesus");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("14401007      Sanchez Carrillo Betsy del Carmen");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -448,7 +458,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logo.png"))); // NOI18N
 
         jMenu1.setText("Archivo");
 
@@ -550,11 +560,11 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 18140, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 18131, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1393,16 +1403,9 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:\
-        ArrayList<String> a = lexemas(); 
-        Automata at = new Automata();
-        String string =at.iniciar(a);
-        if(Automata.bandera && Automata.errores){
-            if(a.get(a.size()-1).equals(";")){
-                JOptionPane.showMessageDialog(this,"Recorrido de automata correcto");txtAreaSalida.setText(string);
-            }
-            else JOptionPane.showMessageDialog(this,"Programa no termina con ;");txtAreaSalida.setText(string);
-        }
-        else {JOptionPane.showMessageDialog(this,"Error en automata");txtAreaSalida.setText(string);}
+        AutomataWindow aw = new AutomataWindow();
+        aw.automata(lexemas());
+        aw.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void menuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAyudaActionPerformed
@@ -1418,7 +1421,7 @@ public class Ventana extends javax.swing.JFrame {
         a.setLocationRelativeTo(null);
     }//GEN-LAST:event_menuAyudaMouseClicked
         
-    private ArrayList<String> lexemas (){
+    public ArrayList<String> lexemas (){
         File codigo = new File("Codigo.txt");
         PrintWriter writer;
         ArrayList<String> array = new ArrayList<>();

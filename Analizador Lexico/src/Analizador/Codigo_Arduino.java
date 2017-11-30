@@ -60,6 +60,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
         resultado = resultado.replaceAll(Pattern.quote(";;"),"||");
         resultado = resultado.replaceAll(Pattern.quote("VDD"),"true");
         resultado = resultado.replaceAll(Pattern.quote("FLS"),"false");
+        resultado = resultado.replaceAll(Pattern.quote(":")," ");
         jEditorPane1.setText(resultado);
         
         
@@ -424,7 +425,7 @@ public class Codigo_Arduino extends javax.swing.JFrame {
             //Aqui va el despuche de las demas palabras reservadas
             case "DET":{
                 declaracion+="  ";
-                declaracion+="wait"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
+                declaracion+="delay"+aux[++i]+aux[++i]+aux[++i]+aux[++i]+aux[++i];;
                 declaracion+="\n";
                 declaracion+="  ";
                 break;

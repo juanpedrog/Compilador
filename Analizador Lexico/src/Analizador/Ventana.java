@@ -292,7 +292,7 @@ public class Ventana extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        //btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
+        btnLexico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Lexico.png"))); // NOI18N
         btnLexico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLexicoActionPerformed(evt);
@@ -300,7 +300,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLexico);
 
-        //jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
+		jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Sintactico.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -308,7 +308,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
 
-       // btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Limpiar.png"))); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Limpiar.png"))); // NOI18N
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -316,7 +316,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnLimpiar);
 
-//        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Abrir.png"))); // NOI18N
+		btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Abrir.png"))); // NOI18N
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -324,7 +324,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnAbrir);
 
-   //     btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Guardar.png"))); // NOI18N
+		btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Guardar.png"))); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -354,7 +354,7 @@ public class Ventana extends javax.swing.JFrame {
         });
         jToolBar1.add(btnRecorrido);
 
-        //jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/arduino.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -448,7 +448,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        //jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Hojita.png"))); // NOI18N
 
         jMenu1.setText("Archivo");
 

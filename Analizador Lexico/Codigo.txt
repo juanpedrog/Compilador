@@ -1,0 +1,4 @@
+FUNC EFEC:
+	ENT b|
+b=2|
+;

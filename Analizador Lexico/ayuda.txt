@@ -1,0 +1,20 @@
+-----Identificadores:-----
+	Inician con una letra minuscula, seguido de letras minusculas, mayusculas, numeros o el simbolo de guion bajo
+-----Simbolos de Agrupacion:
+	: ;	Sirven para agrupar codigo de una comparacion, un ciclo, una funcion etc. Equivalentes a las llaves en java.
+	( )	Sirven para pasar parametros a las funciones o dar prioridad a las operaciones.
+-----Fin de Linea:------
+	Símbolo de pipeline '|'
+-----Ciclos:------
+	ACTM (Condicion): Funciona como un while, ejecuta cierto bloque de codigo mientras una condicion sea valida.
+-----Estructuras de decision:
+	COM(Comparacion): ;	Realiza una comparacion
+	S: ;	Contiene el codigo que se ejecutara en caso de que la comparacion sea verdadera.
+	SN: ;	Contiene el codigo que se ejecutara en caso de que la comparacion sea falsa.
+-----Tipos de dato:-----
+	ENT	Tipo de dato entero
+	FLO	Tipo de dato  flotante
+	BOO 	Tipo de dato booleano, recibe valores verdadero (VDD),y falso (FLS)
+-----Funciones:------
+	Para declarar una funcion se utiliza la palabra reservada FUNC, seguido del nombre de la funcion,
+ y en caso necesario los parametros que llevara.

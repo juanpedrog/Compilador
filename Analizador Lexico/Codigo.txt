@@ -1,3 +1,22 @@
 FUNC EFEC:
-
+	ENT f=10|
+	golpear(f)|
+	moverIzquierda()|
+	moverDerecha()|
+;
+FUNC golpear(ENT tiempo):
+	MOVAD()|
+	DET(tiempo)|
+	MOVAD()|
+	DET(tiempo)|
+	MOVAT()|
+	
+;
+FUNC moverIzquierda():
+	GIRAI()|
+	GIRAI()|
+;
+FUNC moverDerecha():
+	GIRAD()|
+	GIRAD()|
 ;

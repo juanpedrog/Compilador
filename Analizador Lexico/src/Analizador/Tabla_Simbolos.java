@@ -15,8 +15,8 @@ public class Tabla_Simbolos {
     ArrayList<String[]> tabla=new ArrayList<String[]>();
     ArrayList<String[]> parametros=new ArrayList<String[]>();
     public Tabla_Simbolos(){
-        nuevos_parametros(new String[]{"id","FLO",null,null,"MOVAD"});
-        nuevos_parametros(new String[]{"id","FLO",null,null,"MOVAT"});
+        nuevos_parametros(new String[]{"id","ENT",null,null,"DET"});
+        //nuevos_parametros(new String[]{"id","FLO",null,null,"MOVAT"});
     }
     boolean nuevoSimbolo(String[] simbolo){
         //posición 0=Nombre

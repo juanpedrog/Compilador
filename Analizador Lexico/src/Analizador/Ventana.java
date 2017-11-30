@@ -569,7 +569,7 @@ public class Ventana extends javax.swing.JFrame {
                         if(bandComparacion){
                              comparando2=lexer.lexeme;
                              if(comparando1.equals(comparando2)){
-                                 salidaComparacion= "ComparaciÃ³n entre el mismo operando, en la linea: "+(lexer.linea+1)+"\n";
+                                 salidaComparacion= "Comparación entre el mismo operando, en la linea: "+(lexer.linea+1)+"\n";
                              }
                         }
                         else{comparando1=lexer.lexeme;}
